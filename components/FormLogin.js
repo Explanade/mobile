@@ -3,11 +3,17 @@ import { StyleSheet, Dimensions, StatusBar, Text, SafeAreaView } from 'react-nat
 import TextInput2 from './TextInput2'
 import { BlurView } from 'expo-blur'
 import { TouchableHighlight } from 'react-native-gesture-handler';
+import { useSelector, useDispatch } from 'react-redux'
+import { login } from '../store/actions/postLogin'
 const { width, height } = Dimensions.get('window')
+
 
 export default LoginPage = (props) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const dispatch = useDispatch()
+
+
 
     return (
         <SafeAreaView
