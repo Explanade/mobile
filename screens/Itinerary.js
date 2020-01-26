@@ -14,7 +14,6 @@ import {
     ActivityIndicator,
 } from 'react-native'
 import Timeline from '../components/Timeline'
-// import PosterCard from '../components/PosterCard'
 const { width, height } = Dimensions.get('window')
 
 const newData = {
@@ -62,7 +61,7 @@ const newData = {
                         {
                             _id: "5e2b59d896caab340f12b1e9",
                             height: 3480,
-                            photo_reference: "CmRaAAAAUXhEeW3XGl6ihQVqd2uoIft81JL4HkszdFTM-YrB_OF9J86DR4UT7I61LPEoYfksNBznCIUr9hTomnC8bVl-L42xQH0u_DQ2CcaAs8rs60PRQDi1hgiB9Q_IWz_H87VXEhCySA0_A3sxxuvKgF_1fF26GhRVMiMcy46_6KzEI_pnfClTH7Ft6w&key=AIzaSyDVIM3ru1C_sUqdtmUZFjjBHwtkgknV1vc",
+                            photo_reference: "CmRaAAAAUXhEeW3XGl6ihQVqd2uoIft81JL4HkszdFTM-YrB_OF9J86DR4UT7I61LPEoYfksNBznCIUr9hTomnC8bVl-L42xQH0u_DQ2CcaAs8rs60PRQDi1hgiB9Q_IWz_H87VXEhCySA0_A3sxxuvKgF_1fF26GhRVMiMcy46_6KzEI_pnfClTH7Ft6w&key=API_KEY",
                             width: 4640
                         }
                     ],
@@ -590,26 +589,6 @@ export default function Home(props) {
                     />
                 </View>
                 <View style={styles.content}>
-                    {/* {
-                        newData.activities[0].places.map((item, i) => (
-                            <View style={{ flex: 1, flexDirection: 'row' }}>
-                                <View style={{
-                                    flexDirection: 'column',
-                                    width: 10,
-                                    height: 10,
-                                    backgroundColor: 'red'
-                                }}>
-                                    <Text style={{ transform: [{ rotate: '90deg' }] }}
-                                    > {'\u2022'}--------------------------</Text>
-                                </View>
-                                <View styles={{ flex: 8 }}>
-                                    <Text>{item.order}.{item.name}</Text>
-                                    <Text>{item.formatted_address}</Text>
-                                    <Text > {JSON.stringify(item)}</Text>
-                                </View>
-                            </View>
-                        ))
-                    } */}
                     <Timeline
                         data={newData.activities[0].places}
                         circleSize={9}
