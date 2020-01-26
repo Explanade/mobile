@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Navigation from './Navigation'
-import { Image, View, StyleSheet } from 'react-native'; ''
+import { Image, View, StyleSheet, Dimensions } from 'react-native'; ''
 import * as Font from 'expo-font';
+const { width, height } = Dimensions.get('window')
 
 
 export default function App() {
@@ -23,9 +24,7 @@ export default function App() {
 
   if (fontLoaded) {
     return (
-      <View style={styles.container}>
-        <Navigation />
-      </View>
+      <Navigation style={styles.container} />
     )
   }
   else {
@@ -43,6 +42,8 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    height,
+    width,
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',

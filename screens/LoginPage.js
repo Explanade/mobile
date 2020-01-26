@@ -1,60 +1,30 @@
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, StatusBar, Dimensions, View, ImageBackground, Text, SafeAreaView, ActivityIndicator } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient';
-import FormLogin from '../components/FormLogin'
+import TextInput2 from '../components/TextInput2'
+import { BlurView } from 'expo-blur'
+import { TouchableHighlight } from 'react-native-gesture-handler';
+const { width, height } = Dimensions.get('window')
+
 
 export default function LoginPage(props) {
 
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
 
-    const [backdropLoaded, setBackdropLoaded] = useState(false)
-    const { width, height } = Dimensions.get('window')
 
 
-    const styles = StyleSheet.create({
-        container: {
-            height,
-            flex: 1,
-        },
-        logo: {
-            padding: 4,
-            marginTop: 5,
-            paddingLeft: 8,
-            color: 'white',
-            letterSpacing: 3,
-            marginHorizontal: 5,
-            fontWeight: '600',
-            fontSize: 12,
-            zIndex: 10
-        },
-        bar: {
-            width: '100%',
-            justifyContent: 'flex-start',
-            paddingRight: 50,
-            height: 40,
-            backgroundColor: 'white',
-            resizeMode: 'contain',
-            marginBottom: 20
-        },
-        loading: {
-            flex: 1,
-            backgroundColor: 'white',
-            justifyContent: "center",
-            alignItems: "center",
-        }
-    })
 
     return (
-        <SafeAreaView>
+        <SafeAreaView style={styles.container}>
             <ImageBackground
                 style={{
                     width,
                     height: height + 30,
-                    flex: 1,
                     justifyContent: 'center',
                     alignItems: 'center',
                 }}
                 source={{ uri: `https://images.unsplash.com/photo-1543637005-4d639a4e16de?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60` }}
-                onLoadEnd={() => setBackdropLoaded(true)}
                 blurRadius={1}
                 resizeMode={'cover'}
             >
@@ -66,26 +36,138 @@ export default function LoginPage(props) {
                     networkActivityIndicatorVisible={true}
                 ></StatusBar>
 
+                <Text style={styles.explanade}>explanade</Text>
 
-                <FormLogin navigation={props.navigation}></FormLogin>
-                <Text style={styles.logo}>Explanade</Text>
-
-                {/* <Image
-                    source={{ uri: `https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80}` }}
+                <SafeAreaView
                     style={{
-                        zIndex: 10,
-                        position: 'absolute',
-                        width: 200,
-                        height: 300,
+                        position: 'relative',
                         borderRadius: 20,
-                        top: 110,
-                        marginHorizontal: '25%'
-                    }}
-                    resizeMode={"contain"}
-                /> */}
-                <ActivityIndicator size="large" color="#000" style={{ height: '100%' }} animating={!backdropLoaded} />
+                        flex: 1,
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        paddingHorizontal: 20
+                    }}>
+                    <View style={{
+                        width: 250,
+                        alignItems: "center",
+                        justifyContent: "center",
+                        marginVertical: 50,
+                    }}>
+                        <Text style={styles.logo}> Welcome Back!</Text>
+                        {/* <Text style={styles.label}>email</Text> */}
+                        <BlurView tint="dark" intensity={90} style={styles.blur}>
+                            <TextInput2
+                                style={styles.input}
+                                onChangeText={(value) => setEmail(value)}
+                                value={email}
+                                type={'email'}
+                                inlineImageLeft='search_icon'
+                                blurOnSubmit={true}
+                                keyboardType={'email-address'}
+                                placeholder={'YOUR EMAIL'}
+                                placeholderStyle={{ ...styles.label }}
+                            />
+                        </BlurView>
+                        {/* <Text style={styles.label}>password</Text> */}
+                        <BlurView tint="dark" intensity={90} style={styles.blur}>
+                            <TextInput2
+                                style={styles.input}
+                                onChangeText={(value) => setPassword(value)}
+                                value={password}
+                                blurOnSubmit={true}
+                                type={'password'}
+                                inlineImageLeft='search_icon'
+                                numberOfLines={2}
+                                secureTextEntry={true}
+                                placeholder={'YOUR PASSWORD'}
+                                placeholderStyle={{ ...styles.label }} />
+                        </BlurView>
+                    </View>
+                    <TouchableHighlight
+                        style={{
+                            width: width,
+                            // borderRadius: 12,
+                            backgroundColor: 'rgba(242,180,30, 0.85)',
+                            paddingVertical: 17,
+                            paddingHorizontal: 10,
+                            // margin: 25,
+                            // marginTop: 33,
+                            bottom: 0
+                        }}
+                        onPress={() => props.navigation.navigate('Profile')}
+                    >
+                        <Text style={{
+                            textAlign: 'center',
+                            color: 'white',
+                            paddingTop: -50,
+                            paddingBottom: -50,
+                            width: '100%',
+                            fontWeight: 'bold',
+                            letterSpacing: 2,
+                            fontSize: 12
+                        }}>LOGIN</Text>
+                    </TouchableHighlight>
+                </SafeAreaView>
+
             </ImageBackground >
         </SafeAreaView >
     )
 }
 
+const styles = StyleSheet.create({
+    container: {
+        width,
+        height,
+        justifyContent: 'center',
+        alignItems: 'center',
+        flex: 1,
+    },
+    explanade: {
+        padding: 4,
+        marginTop: 100,
+        paddingLeft: 8,
+        color: 'white',
+        letterSpacing: 3,
+        marginHorizontal: 5,
+        fontWeight: '600',
+        fontSize: 12,
+        zIndex: 10
+    },
+    label: {
+        width: '100%',
+        color: 'white',
+        fontSize: 11,
+        letterSpacing: 2,
+        textTransform: 'uppercase',
+        textAlign: "center",
+        width: width / 1.8,
+        fontFamily: 'Poppins-Medium',
+    },
+    blur: {
+        borderRadius: 12,
+        marginTop: 15,
+        height: 45,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    input: {
+        borderColor: '#84cefe',
+        padding: 5,
+        width: width / 1.8,
+        color: 'white',
+        fontSize: 12,
+        // borderWidth: 1,
+        borderRadius: 12,
+        textAlign: 'center',
+    },
+    logo: {
+        textAlign: 'center',
+        width: 250,
+        color: 'white',
+        fontWeight: '800',
+        marginVertical: 50,
+        fontSize: 70,
+        fontFamily: 'Brittanian',
+    },
+
+})
