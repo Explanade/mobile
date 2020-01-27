@@ -96,7 +96,8 @@ export default function Maps(props) {
                             <Marker key={index} coordinate={marker.coordinate}>
                                 <Animated.View style={[styles.markerWrap, opacityStyle]}>
                                     <View style={styles.marker}>
-                                        <Image source={require('../assets/icon-pin-poin.png')} style={{ resizeMode: 'cover', flex: 1, width: '100%' }} />
+
+                                        <Image source={{ uri: "https://img.icons8.com/plasticine/100/000000/marker.png" }} style={{ resizeMode: 'cover', flex: 1, width: '100%' }} />
                                     </View>
                                 </Animated.View>
                             </Marker>

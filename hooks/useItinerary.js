@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { AsyncStorage } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux';
-import { SET_ITINERARIES_LOADING, SET_ITINERARIES, SET_ITINERARIES_ERROR} from '../store/actions/type';
+import { SET_ITINERARIES_LOADING, SET_ITINERARIES, SET_ITINERARIES_ERROR } from '../store/actions/type';
 import axios from '../config/client';
 
 export default function useItinerary() {
@@ -13,19 +13,22 @@ export default function useItinerary() {
             dispatch({
                 type: SET_ITINERARIES_LOADING
             })
-
             AsyncStorage.getItem('Access-Token')
-                .then(token => {
+                .then(data => {
+                    data = JSON.parse(data)
+                    console.log(data)
                     return axios({
                         url: '/itineraries/my-itineraries',
-                        headers: { token }
+                        headers: { token: data.token }
                     })
                 })
                 .then(({ data }) => {
+                    console.log(data, "]]]]]]]]]]]]]]]]]]]]]")
                     dispatch({
                         type: SET_ITINERARIES,
                         itineraries: data
                     })
+
                 })
                 .catch(e => {
                     dispatch({
@@ -34,7 +37,7 @@ export default function useItinerary() {
                     })
                 })
         }
-    },[])
+    }, [])
 
     return { data, loading, error };
 }

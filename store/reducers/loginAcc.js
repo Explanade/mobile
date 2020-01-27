@@ -19,9 +19,9 @@ export default function login(state = initialState, action) {
                 token: action.payload.token,
                 isLogin: true,
                 isLoading: false,
-                profile_picture: action.payload.profile_picture,
-                name: action.payload.name,
-                _id: action.payload._id,
+                profile_picture: action.payload.user.profile_picture,
+                name: action.payload.user.name,
+                _id: action.payload.user._id,
             }
         case LOGOUT:
             return {
@@ -54,10 +54,15 @@ export default function login(state = initialState, action) {
                 message: 'Please input email and password'
             }
         case "SET_USER_SESSION":
+            console.log(action.data)
+            console.log(action.data.token)
             return {
                 ...state,
                 isLogin: true,
-                token: action.token
+                token: action.data.token,
+                email: action.data.user.email,
+                profile_picture: action.data.user.profile_picture,
+                name: action.data.user.name,
             }
         default:
             return state

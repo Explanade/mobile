@@ -10,6 +10,7 @@ import LandingPage from './screens/LandingPage'
 import LoginPage from './screens/LoginPage'
 import Profile from './screens/Profile'
 import Itinerary from './screens/Itinerary'
+import MapView from './screens/MapView'
 
 
 const HomeNavigator = createStackNavigator({
@@ -36,6 +37,28 @@ const HomeNavigator = createStackNavigator({
     },
     Itinerary: {
         screen: Itinerary,
+        navigationOptions: () => ({
+            header: ({ navigation }) => (
+                <View style={{
+                    height: StatusBar.currentHeight + 70,
+                    justifyContent: 'space-between',
+                    flexDirection: 'row',
+                    alignItems: 'flex-end',
+                    paddingHorizontal: 15,
+                }}>
+                    <View style={{ flexDirection: 'row', marginBottom: 10 }}>
+                        <TouchableOpacity onPress={() => navigation.goBack()} style={{ paddingHorizontal: 30, paddingTop: 40 }}>
+                            <FontAwesome5 name={'chevron-left'} style={{ fontSize: 20, color: 'goldenrod' }} />
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            ),
+            headerTransparent: true
+
+        })
+    },
+    MapView: {
+        screen: MapView,
         navigationOptions: () => ({
             header: ({ navigation }) => (
                 <View style={{

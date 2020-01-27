@@ -9,30 +9,14 @@ import {
 
 export default function Card({ itin, featured_image, navigation }) {
 
-    const ItineraryDetail = (data) => {
-        navigation.navigate('ItineraryDetail', { data })
-    }
 
     const styles = StyleSheet.create({
         imageCard: {
             width: 150,
             height: 100,
             resizeMode: 'cover',
-            // borderTopLeftRadius: 15,
-            // borderTopRightRadius: 15,
-            // borderBottomLeftRadius: 15,
-            // borderBottomRightRadius: 15,
             borderRadius: 15,
-            // position: 'relative'
         },
-        // descCard: {
-        //     width: 150,
-        //     height: 40,
-        //     backgroundColor: 'white',
-        //     borderBottomLeftRadius: 15,
-        //     borderBottomRightRadius: 15,
-        //     position: 'relative'
-        // },
         rating: {
             fontSize: 10,
             position: 'absolute',
@@ -52,7 +36,6 @@ export default function Card({ itin, featured_image, navigation }) {
             textAlign: "center",
             fontWeight: 'bold',
             fontSize: 11,
-            // textTransform: "uppercase",
             letterSpacing: 2,
             textShadowColor: "black",
             backgroundColor: "rgba(83,82,75, 0.2)",
@@ -70,7 +53,7 @@ export default function Card({ itin, featured_image, navigation }) {
     return (
         <TouchableHighlight
             style={{ borderRadius: 15 }}
-            onPress={() => ItineraryDetail(itin)}
+            onPress={() => navigation.navigate('Itinerary', { data: { itin, imagez: featured_image } })}
         >
             <View>
                 <Image
@@ -79,8 +62,6 @@ export default function Card({ itin, featured_image, navigation }) {
                 />
                 <Text style={styles.titleRest}>{itin.location.name}</Text>
             </View>
-            {/* <View style={styles.descCard}>
-            </View> */}
         </TouchableHighlight>
     )
 }

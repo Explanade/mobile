@@ -12,8 +12,8 @@ export default function LandingPage(props) {
   const { isLogin } = useSelector(state => state.loginAcc)
 
   useEffect(() => {
-    if(isLogin) {
-        props.navigation.navigate('Profile')
+    if (isLogin) {
+      props.navigation.navigate('Profile')
     }
   })
 

@@ -202,15 +202,18 @@ export default function Profile(props) {
     const [location, setLocation] = useState({})
     const [address, setAddress] = useState([])
     const [dayz, setDayz] = useState(0)
-    const { isLogin } = useSelector(state => state.loginAcc)
+    const {
+        isLoading,
+        isLogin,
+        profile_picture,
+        name,
+    } = useSelector(state => state.loginAcc)
+
+    console.log(name, profile_picture)
 
     const { data, loading, error } = useItinerary();
 
-    const getTrending = () => {
-        setItinerary(itineraries)
-        // setLoading(false);
-    }
-
+    console.log(data)
     function getSum(total, num) {
         return total + Math.round(num);
     }
@@ -223,18 +226,15 @@ export default function Profile(props) {
     const onRefresh = useCallback(() => {
         setRefresh(true);
         wait(1500).then(() => {
-            getTrending();
             setRefresh(false);
         });
     }, [refresh]);
 
     useEffect(() => {
-        getTrending();
-        console.log(isLogin, '::::::::::::::::::::::')
-        if(!isLogin) {
+        if (!isLogin) {
             props.navigation.navigate('LoginPage')
         }
-        setDayz((itineraries.map(item => { return item.date.total_days })).reduce(getSum, 0))
+        setDayz((data.map(item => { return item.date.total_days })).reduce(getSum, 0))
     }, []);
 
     useEffect(() => {
@@ -255,187 +255,163 @@ export default function Profile(props) {
         }
         getLocation()
     }, [])
-    return (
-        <SafeAreaView style={styles.container}>
-            <StatusBar
-                barStyle="light-content"
-                hidden={false}
-                backgroundColor="transparent"
-                translucent={true}
-                networkActivityIndicatorVisible={true}
-            />
-            <ScrollView
-                showsVerticalScrollIndicator={false}
-                refreshControl={<RefreshControl refreshing={refresh} onRefresh={onRefresh} />} >
-                <View>
-                    <Image
-                        source={{ uri: 'https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/4a50cc91022991.5e281f81cd78d.jpg' }}
-                        style={{
-                            top: 0,
-                            height: height / 2,
-                            resizeMode: 'cover',
-                            top: 0,
-                            position: 'relative'
-                        }}
-                        blurRadius={1}
-                    />
-                    <View style={styles.layer} />
-                    <View style={styles.header}>
+
+    if (data.length > 0) {
+        return (
+            <SafeAreaView style={styles.container}>
+                <StatusBar
+                    barStyle="light-content"
+                    hidden={false}
+                    backgroundColor="transparent"
+                    translucent={true}
+                    networkActivityIndicatorVisible={true}
+                />
+                <ScrollView
+                    showsVerticalScrollIndicator={false}
+                    refreshControl={<RefreshControl refreshing={refresh} onRefresh={onRefresh} />} >
+                    <View>
                         <Image
-                            source={{ uri: profile.profile_picture }}
-                            style={styles.pp}
-                        />
-                        {
-                            (profile.name.length <= 20)
-                                ? (
-                                    <Text style={styles.titleCol} >
-                                        {profile.name}
-                                    </Text>)
-                                : (
-                                    <Text style={{
-                                        fontFamily: 'Poppins-Medium',
-                                        fontSize: 25,
-                                        fontWeight: 'bold',
-                                        color: 'white',
-                                        letterSpacing: 0.15,
-                                        marginHorizontal: 10
-                                    }} >
-                                        {profile.name}
-                                    </Text>
-                                )
-                        }
-                        <Text style={styles.total}>
-                            {itineraries.length} trips - {dayz} days
-                        </Text>
-                    </View>
-                </View>
-
-                <View style={styles.content}>
-                    <View style={styles.shadowLocation2}>
-                        <View style={styles.location2} >
-                            <FontAwesome5 name={'map-marker-alt'}
-                                style={{
-                                    fontSize: 15,
-                                    color: '#fdcf48',
-                                    paddingBottom: 0,
-                                    marginLeft: -10
-                                }} >
-                                <Text style={{
-                                    ...styles.total,
-                                    color: '#154036',
-                                    color: 'black',
-                                    fontSize: 13,
-                                    width: '80%',
-                                    textAlign: "left",
-                                    paddingBottom: 0,
-                                    fontWeight: '600',
-                                    letterSpacing: 1
-                                }}>   YOU'RE IN </Text>
-                            </FontAwesome5>
-                            <Text
-                                style={{
-                                    ...styles.total,
-                                    color: 'white',
-                                    fontSize: 9,
-                                    width: '70%',
-                                    textAlign: "center",
-                                    margin: 0,
-                                    padding: 0
-                                }}
-                            >
-                                {
-                                    address.length >= 1
-                                        ? ` ${address[0].city.split(' ').slice(1, 3).join(' ')}\n ${address[0].region} \n ${address[0].country}`
-                                        : 'Jakarta'
-                                }
-                            </Text>
-                        </View>
-                    </View>
-
-                    <View >
-                        <Text
+                            source={{ uri: 'https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/4a50cc91022991.5e281f81cd78d.jpg' }}
                             style={{
-                                ...styles.title,
-                                paddingLeft: 0,
-                                marginBottom: 9,
+                                top: 0,
+                                height: height / 2,
+                                resizeMode: 'cover',
+                                top: 0,
+                                position: 'relative'
                             }}
-                        >ONGOING TRIP</Text>
+                            blurRadius={1}
+                        />
+                        <View style={styles.layer} />
+                        <View style={styles.header}>
+                            <Image
+                                source={{ uri: profile_picture }}
+                                style={styles.pp}
+                            />
+                            {
+                                (name.length <= 20)
+                                    ? (
+                                        <Text style={styles.titleCol} >
+                                            {name}
+                                        </Text>)
+                                    : (
+                                        <Text style={{
+                                            fontFamily: 'Poppins-Medium',
+                                            fontSize: 25,
+                                            fontWeight: 'bold',
+                                            color: 'white',
+                                            letterSpacing: 0.15,
+                                            marginHorizontal: 10
+                                        }} >
+                                            {name}
+                                        </Text>
+                                    )
+                            }
+                            <Text style={styles.total}>
+                                {data.length} trips - {dayz} days
+                            </Text>
+                        </View>
+                    </View>
 
-                        <View>
-                            <TouchableHighlight
-                                style={styles.shadowContainer2}
-                                onPress={() => props.navigation.navigate('Itinerary')}
-                            >
-                                <View style={styles.descCard}>
-                                    <Image
-                                        source={{ uri: featured_image[4] }}
-                                        style={styles.imageCard}
-                                    />
-                                    <Text style={styles.titleRest}>{itineraries[0].location.name}</Text>
-                                    <Text
-                                        style={{
-                                            fontSize: 12,
-                                            ...styles.descRest
-                                        }}>
-                                        {`${(itineraries[0].date.start).split('T')[0]} - ${(itineraries[0].date.end).split('T')[0]} `}
-                                        {`\n${itineraries[0].date.total_days} days`}
-                                    </Text>
-                                </View>
-                            </TouchableHighlight>
+                    <View style={styles.content}>
+                        <View style={styles.shadowLocation2}>
+                            <View style={styles.location2} >
+                                <FontAwesome5 name={'map-marker-alt'}
+                                    style={{
+                                        fontSize: 15,
+                                        color: '#fdcf48',
+                                        paddingBottom: 0,
+                                        marginLeft: -10
+                                    }} >
+                                    <Text style={{
+                                        ...styles.total,
+                                        color: '#154036',
+                                        color: 'black',
+                                        fontSize: 13,
+                                        width: '80%',
+                                        textAlign: "left",
+                                        paddingBottom: 0,
+                                        fontWeight: '600',
+                                        letterSpacing: 1
+                                    }}>   YOU'RE IN </Text>
+                                </FontAwesome5>
+                                <Text
+                                    style={{
+                                        ...styles.total,
+                                        color: 'white',
+                                        fontSize: 9,
+                                        width: '70%',
+                                        textAlign: "center",
+                                        margin: 0,
+                                        padding: 0
+                                    }}
+                                >
+                                    {
+                                        address.length >= 1
+                                            ? ` ${address[0].city.split(' ').slice(1, 3).join(' ')}\n ${address[0].region} \n ${address[0].country}`
+                                            : 'Jakarta'
+                                    }
+                                </Text>
+                            </View>
                         </View>
 
-                        {/* <View style={{
-                            ...styles.location,
-                            marginBottom: 19
-                        }} >
-                            <FontAwesome5 name={'map-marker-alt'}
-                                style={{
-                                    fontSize: 15,
-                                    color: '#fdcf48',
-                                    marginRight: 10,
-                                    paddingLeft: 10
-                                }} />
+                        <View >
                             <Text
                                 style={{
-                                    ...styles.total,
-                                    color: 'black',
-                                    fontSize: 11,
-                                    width: '80%',
-                                    textAlign: "left"
+                                    ...styles.title,
+                                    paddingLeft: 0,
+                                    marginBottom: 9,
                                 }}
+                            >ONGOING TRIP</Text>
+
+                            <View>
+                                <TouchableHighlight
+                                    style={styles.shadowContainer2}
+                                    onPress={() => props.navigation.navigate('Itinerary', { data: { itin: data[0], imagez: featured_image[4] } })}
+                                >
+                                    <View style={styles.descCard}>
+                                        <Image
+                                            source={{ uri: featured_image[4] }}
+                                            style={styles.imageCard}
+                                        />
+                                        <Text style={styles.titleRest}>{data[0].location.name}</Text>
+                                        <Text
+                                            style={{
+                                                fontSize: 12,
+                                                ...styles.descRest
+                                            }}>
+                                            {`${(data[0].date.start).split('T')[0]} - ${(data[0].date.end).split('T')[0]} `}
+                                            {`\n${data[0].date.total_days} days`}
+                                        </Text>
+                                    </View>
+                                </TouchableHighlight>
+                            </View>
+                        </View>
+                        <View style={{ marginLeft: 25 }}>
+                            <Text style={styles.title}>LATEST TRIPS</Text>
+                            <ScrollView
+                                horizontal={true}
+                                showsHorizontalScrollIndicator={false}
+                                style={styles.layoutEst}
                             >
                                 {
-                                    address.length >= 1
-                                        ? `${address[0].city.split(' ').slice(1, 3).join(' ')}, ${address[0].region}`
-                                        : 'Loading...'
+                                    data.map((item, i) => (
+                                        <View key={i} style={styles.shadowContainer}>
+                                            <CardHistory
+                                                itin={item}
+                                                navigation={props.navigation}
+                                                featured_image={featured_image[i]}
+                                            />
+                                        </View>
+                                    ))
                                 }
-                            </Text>
-                        </View> */}
+                            </ScrollView>
+                        </View>
                     </View>
-                    <View style={{ marginLeft: 25 }}>
-                        <Text style={styles.title}>LATEST TRIPS</Text>
-                        <ScrollView
-                            horizontal={true}
-                            showsHorizontalScrollIndicator={false}
-                            style={styles.layoutEst}
-                        >
-                            {
-                                itineraries.map((item, i) => (
-                                    <View key={i} style={styles.shadowContainer}>
-                                        <CardHistory
-                                            itin={item}
-                                            navigation={props.navigation}
-                                            featured_image={featured_image[i]}
-                                        />
-                                    </View>
-                                ))
-                            }
-                        </ScrollView>
-                    </View>
-                </View>
-            </ScrollView>
-        </SafeAreaView >
-    )
+                </ScrollView>
+            </SafeAreaView >
+        )
+    }
+    else return <Text>asd</Text>
 }
 
 const styles = StyleSheet.create({

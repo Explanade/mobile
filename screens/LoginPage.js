@@ -24,11 +24,10 @@ export default function LoginPage(props) {
             password,
         }
         dispatch(login(payload))
-        // props.navigation.navigate('Profile')
     }
 
     useEffect(() => {
-        if(isLogin) {
+        if (isLogin) {
             props.navigation.navigate('Profile')
         }
     })
@@ -113,7 +112,7 @@ export default function LoginPage(props) {
                             bottom: 0
                         }}
                         onPress={() => goLogin(email, password)}
-                        // onPress={() => props.navigation.navigate('Profile')}
+                    // onPress={() => props.navigation.navigate('Profile')}
                     >
                         <Text style={{
                             textAlign: 'center',

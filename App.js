@@ -28,11 +28,12 @@ export default function App() {
 
   useEffect(() => {
     AsyncStorage.getItem('Access-Token')
-      .then(token => {
-        if (token) {
+      .then(data => {
+        console.log(data, "------------------")
+        if (data) {
           store.dispatch({
             type: 'SET_USER_SESSION',
-            token
+            data: JSON.parse(data)
           })
         }
       })

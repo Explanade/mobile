@@ -169,7 +169,7 @@ export default class Timeline extends PureComponent {
                         ? (
                             <View style={styles.shadowContainer}>
                                 <Image
-                                    source={{ uri: `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${rowData.photos[0].photo_reference}&key=API_KEY` }}
+                                    source={{ uri: rowData.photo }}
                                     style={styles.imageContainer}
                                     resizeMode={'cover'}
                                 />
