@@ -63,6 +63,7 @@ export default class Timeline extends PureComponent {
         return (
             <View style={[styles.container, this.props.style]}>
                 <FlatList
+                    showsVerticalScrollIndicator={false}
                     style={[styles.listview, this.props.listViewStyle]}
                     contentContainerStyle={this.props.listViewContainerStyle}
                     data={this.state.data}
