@@ -94,7 +94,7 @@ export default function LoginPage(props) {
                             // marginTop: 33,
                             bottom: 0
                         }}
-                        onPress={() => props.navigation.navigate('Profile')}
+                        onPress={() => props.navigation.navigate('HomeNavigator')}
                     >
                         <Text style={{
                             textAlign: 'center',
