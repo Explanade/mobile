@@ -3,7 +3,7 @@ import {
     Text,
     View,
     Image,
-    TouchableOpacity,
+    TouchableHighlight,
     StyleSheet
 } from 'react-native';
 
@@ -15,21 +15,24 @@ export default function Card({ itin, featured_image, navigation }) {
 
     const styles = StyleSheet.create({
         imageCard: {
-            width: 160,
-            height: 110,
+            width: 150,
+            height: 100,
             resizeMode: 'cover',
-            borderTopLeftRadius: 15,
-            borderTopRightRadius: 15,
-            position: 'relative'
+            // borderTopLeftRadius: 15,
+            // borderTopRightRadius: 15,
+            // borderBottomLeftRadius: 15,
+            // borderBottomRightRadius: 15,
+            borderRadius: 15,
+            // position: 'relative'
         },
-        descCard: {
-            width: 160,
-            height: 50,
-            backgroundColor: 'white',
-            borderBottomLeftRadius: 15,
-            borderBottomRightRadius: 15,
-            position: 'relative'
-        },
+        // descCard: {
+        //     width: 150,
+        //     height: 40,
+        //     backgroundColor: 'white',
+        //     borderBottomLeftRadius: 15,
+        //     borderBottomRightRadius: 15,
+        //     position: 'relative'
+        // },
         rating: {
             fontSize: 10,
             position: 'absolute',
@@ -41,15 +44,20 @@ export default function Card({ itin, featured_image, navigation }) {
             padding: 5
         },
         titleRest: {
-            marginTop: -30,
-            marginHorizontal: 4,
+            borderRadius: 15,
+            width: 150,
+            height: 100,
+            paddingTop: 70,
             color: 'white',
-            fontFamily: 'Poppins-Medium',
-            fontWeight: '900',
-            fontSize: 20,
-            textTransform: "uppercase",
+            textAlign: "center",
+            fontWeight: 'bold',
+            fontSize: 11,
+            // textTransform: "uppercase",
             letterSpacing: 2,
-            textShadowColor: "black"
+            textShadowColor: "black",
+            backgroundColor: "rgba(83,82,75, 0.2)",
+            position: "absolute",
+            zIndex: 10
         },
         descRest: {
             marginHorizontal: 4,
@@ -60,16 +68,19 @@ export default function Card({ itin, featured_image, navigation }) {
     })
 
     return (
-        <TouchableOpacity
+        <TouchableHighlight
+            style={{ borderRadius: 15 }}
             onPress={() => ItineraryDetail(itin)}
         >
-            <Image
-                source={{ uri: featured_image }}
-                style={styles.imageCard}
-            />
-            <View style={styles.descCard}>
-                <Text style={styles.titleRest}>Bandung</Text>
+            <View>
+                <Image
+                    source={{ uri: featured_image }}
+                    style={styles.imageCard}
+                />
+                <Text style={styles.titleRest}>{itin.location.name}</Text>
             </View>
-        </TouchableOpacity>
+            {/* <View style={styles.descCard}>
+            </View> */}
+        </TouchableHighlight>
     )
 }

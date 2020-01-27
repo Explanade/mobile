@@ -19,10 +19,9 @@ export default function LoginPage(props) {
 
 
     function goLogin(email, password) {
-        console.log(email, password, '{{{{{{{{{{{{{{{{{{{{')
         let payload = {
             email,
-            password
+            password,
         }
         dispatch(login(payload))
         // props.navigation.navigate('Profile')

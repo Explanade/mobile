@@ -1,19 +1,22 @@
 import { SUC_LOG, FAIL_LOG, LOGOUT, EMPTY_INPUT } from './type'
-import axios from 'axios'
-
+import axios from '../../config/client'
+import { setAccessToken } from '../../utils/token';
 
 export const login = (payload) => async dispatch => {
-    console.log(payload, '=============')
+    try {
     if (payload.email && payload.password) {
         // dispatch({
         //     type: 'SET_IS_LOADING',
         //     payload: true
         // })
         const { data } = await axios({
-            url: 'http://localhost:3000/user/login',
+            url: '/user/login',
             method: 'post',
             data: payload
         })
+        console.log(data, '======')
+        setAccessToken(data.token);
+
         console.log(data, '<<<<<<<<<<<<<<<<<<<<<')
         dispatch({
             type: SUC_LOG,
@@ -47,6 +50,11 @@ export const login = (payload) => async dispatch => {
     //         dispatch(emptyInput())
     //     }
     // }
+    } catch(e) {
+        dispatch({
+            type: FAIL_LOG, payload: null
+        })
+    }
 }
 
 export const successLogin = (payload) => {

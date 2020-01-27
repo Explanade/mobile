@@ -502,12 +502,11 @@ const newData = {
     __v: 0
 }
 
-export default function Home(props) {
+export default function Itinerary(props) {
 
     const [itinerary, setItinerary] = useState({});
     const [loading, setLoading] = useState(false);
     const [refresh, setRefresh] = useState(false);
-    console.log(itinerary)
     const getTrending = () => {
         setItinerary(newData)
         setLoading(false);
@@ -538,21 +537,14 @@ export default function Home(props) {
                 translucent={true}
                 networkActivityIndicatorVisible={true}
             />
-            <ScrollView
+            <View
                 showsVerticalScrollIndicator={false}
                 refreshControl={<RefreshControl refreshing={refresh} onRefresh={onRefresh} />} >
                 <View   >
                     <Image
                         source={{ uri: 'https://images.unsplash.com/photo-1495954380655-01609180eda3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60' }}
-                        style={{
-                            top: 0,
-                            height: 500,
-                            resizeMode: 'cover',
-                            top: 0,
-                            position: 'relative'
-                        }}
+                        style={styles.headerImg}
                     />
-                    <View style={styles.layer} />
                     <View style={styles.header}>
                         {
                             (newData.name.length <= 20)
@@ -562,7 +554,7 @@ export default function Home(props) {
                                 : (
                                     <Text style={{
                                         fontFamily: 'Poppins-Medium',
-                                        fontSize: 25,
+                                        fontSize: 20,
                                         fontWeight: 'bold',
                                         color: 'white',
                                         letterSpacing: 0.15,
@@ -579,16 +571,10 @@ export default function Home(props) {
                                 : <Text style={{ ...styles.total, marginTop: 0 }}> {newData.date.total_days} day</Text>
                         }
                     </View>
-                    <FlatList
-                        style={styles.list}
-                        showsHorizontalScrollIndicator={false}
-                        horizontal={true}
-                        data={newData.activities}
-                        renderItem={({ item, index }) => <Text style={styles.day}> day {index + 1} </Text>}
-                        keyExtractor={(item, index) => index.toString()}
-                    />
                 </View>
                 <View style={styles.content}>
+
+
                     <Timeline
                         data={newData.activities[0].places}
                         circleSize={9}
@@ -614,7 +600,7 @@ export default function Home(props) {
                         }}
                         descriptionStyle={{ color: 'gray', fontSize: 9 }}
                         options={{
-                            style: { paddingTop: 5 }
+                            // style: { paddingTop: 5 }
                         }}
                         detailContainerStyle={{
                             marginBottom: 20,
@@ -626,7 +612,7 @@ export default function Home(props) {
                     />
 
                 </View>
-            </ScrollView>
+            </View>
         </SafeAreaView >
     )
 }
@@ -637,21 +623,13 @@ const styles = StyleSheet.create({
         height,
         backgroundColor: 'white'
     },
-    list: {
-        width: '100%',
-        top: -100,
-        shadowColor: 'black',
-        shadowOpacity: 5,
-        shadowOffset: { width: 50, height: 50 },
-        paddingHorizontal: 40,
-    },
     content: {
         width: '100%',
         height: height,
-        borderTopLeftRadius: 50,
-        borderTopRightRadius: 50,
+        // borderTopLeftRadius: 50,
+        // borderTopRightRadius: 50,
         backgroundColor: 'white',
-        top: -80,
+        // top: -80,
         shadowColor: 'black',
         shadowOpacity: 5,
         shadowOffset: { width: 50, height: 50 },
@@ -664,10 +642,10 @@ const styles = StyleSheet.create({
         fontSize: 12,
         fontWeight: 'bold',
         fontFamily: 'Quicksand-Medium',
-        color: 'white',
+        color: 'black',
         backgroundColor: 'rgba(255,255,255, 0.3)',
         borderRadius: 12,
-        padding: 5
+        paddingHorizontal: 5
     },
     title: {
         padding: 4,
@@ -702,39 +680,47 @@ const styles = StyleSheet.create({
         marginVertical: 10,
         padding: 10,
     },
+    headerImg: {
+        height: 200,
+        resizeMode: 'cover',
+        position: 'relative',
+        borderBottomRightRadius: 65,
+        borderBottomLeftRadius: 65
+    },
     header: {
-        height: 500,
+        height: 300,
         resizeMode: 'cover',
         position: 'absolute',
         justifyContent: "center",
-        paddingTop: 10,
-        paddingBottom: 20,
-        paddingLeft: 10,
-        paddingRight: 20,
-    },
-    layer: {
+        textAlign: "center",
+        // paddingTop: 10,
+        // paddingBottom: 20,
+        // paddingLeft: 10,
+        // paddingRight: 20,
         width: '100%',
-        height: 500,
+        height: 200,
         resizeMode: 'cover',
         backgroundColor: 'rgba(0, 0, 0, 0.5)',
-        position: 'absolute'
+        position: 'absolute',
+        borderBottomRightRadius: 65,
+        borderBottomLeftRadius: 65
     },
     total: {
-        width: '50%',
+        textAlign: "center",
+        width: '100%',
         color: 'white',
         fontFamily: 'Poppins-Medium',
         color: 'white',
         fontSize: 12,
         marginTop: 2,
         marginBottom: 2,
-        marginHorizontal: 10
     },
     titleCol: {
+        textAlign: "center",
         fontFamily: 'Poppins-Medium',
-        fontSize: 45,
+        fontSize: 20,
         fontWeight: 'bold',
         color: 'white',
         letterSpacing: 0.15,
-        marginHorizontal: 10
     },
 });

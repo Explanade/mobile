@@ -53,6 +53,12 @@ export default function login(state = initialState, action) {
                 isLoading: false,
                 message: 'Please input email and password'
             }
+        case "SET_USER_SESSION":
+            return {
+                ...state,
+                isLogin: true,
+                token: action.token
+            }
         default:
             return state
     }

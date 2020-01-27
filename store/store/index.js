@@ -1,9 +1,11 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux'
 import thunk from 'redux-thunk'
 import loginAcc from '../reducers/loginAcc'
+import itinerary from '../reducers/itinerary';
 
 const reducers = combineReducers({ 
-    loginAcc
+    loginAcc,
+    itinerary
 })
 
 
