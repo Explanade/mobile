@@ -165,7 +165,7 @@ export default class Timeline extends PureComponent {
                 </View>
 
                 {
-                    rowData.photos.length !== 0
+                    rowData.photo
                         ? (
                             <View style={styles.shadowContainer}>
                                 <Image

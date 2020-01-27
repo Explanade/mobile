@@ -8,59 +8,55 @@ import {
     Dimensions,
 } from "react-native";
 import MapView, { Marker } from "react-native-maps";
-const Images = [
-    { uri: "https://i.imgur.com/sNam9iJ.jpg" },
-    { uri: "https://i.imgur.com/N7rlQYt.jpg" },
-    { uri: "https://i.imgur.com/UDrH0wm.jpg" },
-    { uri: "https://i.imgur.com/Ka8kNST.jpg" }
-]
+
 const { width, height } = Dimensions.get("window");
 const CARD_HEIGHT = height / 3;
 const CARD_WIDTH = CARD_HEIGHT - 10;
 
 export default function Maps(props) {
+    const { data, location } = props.navigation.state.params;
+
     const [animation, setAnimation] = useState(new Animated.Value(0))
-    const [markers, setMarkers] = useState([
-        {
-            coordinate: {
-                latitude: 45.524548,
-                longitude: -122.6749817,
-            },
-            title: "Best Place",
-            description: "This is the best place in Portland",
-            image: Images[0],
-        },
-        {
-            coordinate: {
-                latitude: 45.524698,
-                longitude: -122.6655507,
-            },
-            title: "Second Best Place",
-            description: "This is the second best place in Portland",
-            image: Images[1],
-        },
-        {
-            coordinate: {
-                latitude: 45.5230786,
-                longitude: -122.6701034,
-            },
-            title: "Third Best Place",
-            description: "This is the third best place in Portland",
-            image: Images[2],
-        },
-        {
-            coordinate: {
-                latitude: 45.521016,
-                longitude: -122.6561917,
-            },
-            title: "Fourth Best Place",
-            description: "This is the fourth best place in Portland",
-            image: Images[3],
-        },
-    ]);
+    const [markers, setMarkers] = useState([])
+
+    useEffect(() => {
+        let temp = [];
+        for (let act in data) {
+            let activity = data[act];
+            let newObj = {
+                coordinate: {
+                    latitude: activity.lat,
+                    longitude: activity.lng
+                },
+                title: activity.name,
+                description: activity.formatted_address,
+                image: activity.photo
+            }
+            temp.push(newObj)
+        }
+        setMarkers(temp)
+    }, [])
+
+    useEffect(() => {
+        if (markers) {
+            animation.addListener(({ value }) => {})
+        }
+    }, [markers])
+
+    const changeMapView = (target) => {
+        let index = Math.floor(target / CARD_WIDTH + 0.3);
+        if (index >= markers.length) {
+            index = markers.length - 1;
+        }
+        if (index <= 0) {
+            index = 0;
+        }
+        console.log(index)
+    }
+
     const [region, setRegion] = useState({
-        latitude: 45.52220671242907,
-        longitude: -122.6653281029795,
+        latitude: location.latitude,
+        longitude: location.longitude,
         latitudeDelta: 0.04864195044303443,
         longitudeDelta: 0.040142817690068,
     });
@@ -79,6 +75,23 @@ export default function Maps(props) {
         });
         return { opacity };
     });
+
+    const testDrag = (e) => {
+        let xValue = e.nativeEvent.contentOffset.x;
+        let index = Math.floor(xValue / CARD_WIDTH + 0.3)
+        if (index >= markers.length) {
+            index = markers.length - 1;
+        }
+        if (index <= 0) {
+            index = 0;
+        }
+        const { coordinate } = markers[index];
+        Maps.animateToRegion({
+            ...coordinate,
+            latitudeDelta: region.latitudeDelta,
+            longitudeDelta: region.longitudeDelta,
+        }, 350)
+    }
 
     return (
         <View style={styles.container}>
@@ -122,18 +135,21 @@ export default function Maps(props) {
                     ],
                     { useNativeDriver: true }
                 )}
+                onScrollEndDrag={testDrag}
+                
                 style={styles.scrollView}
                 contentContainerStyle={styles.endPadding}
             >
                 {markers.map((marker, index) => (
                     <View style={styles.card} key={index}>
                         <Image
-                            source={marker.image}
+                            source={{uri: marker.image}}
                             style={styles.cardImage}
                             resizeMode="cover"
                         />
                         <View style={styles.textContent}>
                             <Text numberOfLines={1} style={styles.cardtitle}>{marker.title}</Text>
+                            <Text numberOfLines={1}>{marker.description}</Text>
                         </View>
                     </View>
                 ))}
