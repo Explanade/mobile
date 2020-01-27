@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { AsyncStorage } from 'react-native';
+import { Provider } from 'react-redux'
+import store from './store/store'
 import Navigation from './Navigation'
 import { Image, View, StyleSheet, Dimensions } from 'react-native'; ''
 import * as Font from 'expo-font';
@@ -7,6 +10,7 @@ const { width, height } = Dimensions.get('window')
 
 export default function App() {
   const [fontLoaded, setFontLoaded] = useState(false);
+
   useEffect(() => {
     Font.loadAsync({
       'Tahu': require('./assets/fonts/Tahu!.ttf'),
@@ -22,9 +26,26 @@ export default function App() {
       })
   }, [])
 
+  useEffect(() => {
+    AsyncStorage.getItem('Access-Token')
+      .then(token => {
+        if (token) {
+          store.dispatch({
+            type: 'SET_USER_SESSION',
+            token
+          })
+        }
+      })
+      .catch(e => {
+        console.log(e)
+      })
+  }, [])
+
   if (fontLoaded) {
     return (
-      <Navigation style={styles.container} />
+      <Provider store={store}>
+        <Navigation style={styles.container} />
+      </Provider>
     )
   }
   else {

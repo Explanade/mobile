@@ -17,7 +17,9 @@ import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import CardHistory from '../components/CardHistory'
+import { useSelector } from 'react-redux'
 const { width, height } = Dimensions.get('window')
+import useItinerary from '../hooks/useItinerary';
 
 const itineraries = [{
     location: {
@@ -192,18 +194,21 @@ const profile = {
     profile_picture: `https://ui-avatars.com/api/?name=Afifah&rounded=true`
 }
 
-export default function Home(props) {
+export default function Profile(props) {
 
     const [itinerary, setItinerary] = useState({});
-    const [loading, setLoading] = useState(false);
+    // const [loading, setLoading] = useState(false);
     const [refresh, setRefresh] = useState(false);
     const [location, setLocation] = useState({})
     const [address, setAddress] = useState([])
     const [dayz, setDayz] = useState(0)
+    const { isLogin } = useSelector(state => state.loginAcc)
+
+    const { data, loading, error } = useItinerary();
 
     const getTrending = () => {
         setItinerary(itineraries)
-        setLoading(false);
+        // setLoading(false);
     }
 
     function getSum(total, num) {
@@ -225,6 +230,10 @@ export default function Home(props) {
 
     useEffect(() => {
         getTrending();
+        console.log(isLogin, '::::::::::::::::::::::')
+        if(!isLogin) {
+            props.navigation.navigate('LoginPage')
+        }
         setDayz((itineraries.map(item => { return item.date.total_days })).reduce(getSum, 0))
     }, []);
 

@@ -1,13 +1,21 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { StyleSheet, Image, Dimensions } from 'react-native'
 import { Button } from 'native-base'
 import { LinearGradient } from 'expo-linear-gradient';
 import Block from '../components/Block'
-import Text from '../components/Text'
+import Text from '../components/Text';
+import { useSelector } from 'react-redux'
 
 export default function LandingPage(props) {
 
   const { width, height } = Dimensions.get('window')
+  const { isLogin } = useSelector(state => state.loginAcc)
+
+  useEffect(() => {
+    if(isLogin) {
+        props.navigation.navigate('Profile')
+    }
+  })
 
   return (
     <Block style={{ backgroundColor: '#eae5de' }} >

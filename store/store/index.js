@@ -1,11 +1,11 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux'
 import thunk from 'redux-thunk'
 import loginAcc from '../reducers/loginAcc'
-import serviceTask from '../reducers/serviceTask'
-import rankBakso from '../reducers/rankBakso'
+import itinerary from '../reducers/itinerary';
 
 const reducers = combineReducers({ 
-    loginAcc, serviceTask, rankBakso
+    loginAcc,
+    itinerary
 })
 
 

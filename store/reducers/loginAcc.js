@@ -7,7 +7,6 @@ const initialState = {
     token: null,
     profile_picture: null,
     name: null,
-    itinerary: null,
     _id: null,
 }
 
@@ -22,7 +21,6 @@ export default function login(state = initialState, action) {
                 isLoading: false,
                 profile_picture: action.payload.profile_picture,
                 name: action.payload.name,
-                itinerary: action.payload.itinerary,
                 _id: action.payload._id,
             }
         case LOGOUT:
@@ -54,6 +52,12 @@ export default function login(state = initialState, action) {
                 isLogin: false,
                 isLoading: false,
                 message: 'Please input email and password'
+            }
+        case "SET_USER_SESSION":
+            return {
+                ...state,
+                isLogin: true,
+                token: action.token
             }
         default:
             return state

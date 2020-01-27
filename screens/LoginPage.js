@@ -4,6 +4,9 @@ import { LinearGradient } from 'expo-linear-gradient';
 import TextInput2 from '../components/TextInput2'
 import { BlurView } from 'expo-blur'
 import { TouchableHighlight } from 'react-native-gesture-handler';
+import { useDispatch, useSelector } from 'react-redux'
+import { login } from '../store/actions/postLogin'
+
 const { width, height } = Dimensions.get('window')
 
 
@@ -11,9 +14,24 @@ export default function LoginPage(props) {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const dispatch = useDispatch()
+    const { isLogin } = useSelector(state => state.loginAcc)
 
 
+    function goLogin(email, password) {
+        let payload = {
+            email,
+            password,
+        }
+        dispatch(login(payload))
+        // props.navigation.navigate('Profile')
+    }
 
+    useEffect(() => {
+        if(isLogin) {
+            props.navigation.navigate('Profile')
+        }
+    })
 
     return (
         <SafeAreaView style={styles.container}>
@@ -94,7 +112,8 @@ export default function LoginPage(props) {
                             // marginTop: 33,
                             bottom: 0
                         }}
-                        onPress={() => props.navigation.navigate('HomeNavigator')}
+                        onPress={() => goLogin(email, password)}
+                        // onPress={() => props.navigation.navigate('Profile')}
                     >
                         <Text style={{
                             textAlign: 'center',
