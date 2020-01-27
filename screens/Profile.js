@@ -14,6 +14,7 @@ import {
     ActivityIndicator,
 } from 'react-native'
 import CardHistory from '../components/CardHistory'
+import { useSelector } from 'react-redux'
 const { width, height } = Dimensions.get('window')
 
 const itineraries = [{
@@ -138,11 +139,12 @@ const profile = {
     profile_picture: `https://ui-avatars.com/api/?name=Afifah&rounded=true`
 }
 
-export default function Home({ navigation }) {
+export default function Profile(props) {
 
     const [itinerary, setItinerary] = useState({});
     const [loading, setLoading] = useState(false);
     const [refresh, setRefresh] = useState(false);
+    const { isLogin } = useSelector(state => state.loginAcc)
 
     console.log(itinerary)
     const getTrending = () => {
@@ -165,6 +167,10 @@ export default function Home({ navigation }) {
 
     useEffect(() => {
         getTrending();
+        console.log(isLogin, '::::::::::::::::::::::')
+        if(!isLogin) {
+            props.navigation.navigate('LoginPage')
+        }
     }, []);
     return (
         <SafeAreaView style={styles.container}>
@@ -238,7 +244,7 @@ export default function Home({ navigation }) {
                                     <View key={i} style={styles.shadowContainer}>
                                         <CardHistory
                                             itin={item.itin}
-                                            navigation={navigation}
+                                            navigation={props.navigation}
                                             featured_image={featured_image[i]}
                                         />
                                     </View>

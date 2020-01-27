@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { Provider } from 'react-redux'
+import store from './store/store'
 import Navigation from './Navigation'
 import { Image, View, StyleSheet, Dimensions } from 'react-native'; ''
 import * as Font from 'expo-font';
@@ -24,7 +26,9 @@ export default function App() {
 
   if (fontLoaded) {
     return (
-      <Navigation style={styles.container} />
+      <Provider store={store}>
+        <Navigation style={styles.container} />
+      </Provider>
     )
   }
   else {

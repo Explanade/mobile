@@ -7,7 +7,6 @@ const initialState = {
     token: null,
     profile_picture: null,
     name: null,
-    itinerary: null,
     _id: null,
 }
 
@@ -22,7 +21,6 @@ export default function login(state = initialState, action) {
                 isLoading: false,
                 profile_picture: action.payload.profile_picture,
                 name: action.payload.name,
-                itinerary: action.payload.itinerary,
                 _id: action.payload._id,
             }
         case LOGOUT:
