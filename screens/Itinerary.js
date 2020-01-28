@@ -57,10 +57,12 @@ export default function Itinerary(props) {
     }
 
     const seeMap = () => {
-        props.navigation.push('MapView', { data: itinDetail, location: {
-            latitude: itinerary.location.lat,
-            longitude: itinerary.location.lng
-        }})
+        props.navigation.push('MapView', {
+            data: itinDetail, location: {
+                latitude: itinerary.location.lat,
+                longitude: itinerary.location.lng
+            }
+        })
     }
 
     return (
@@ -100,11 +102,24 @@ export default function Itinerary(props) {
                         <Text style={{ ...styles.total, textTransform: "uppercase", letterSpacing: 3 }}> {data.itin.location.name}</Text>
                         {
                             data.itin.date.total_days > 1
-                            ? <Text style={{ ...styles.total, marginTop: 0 }}> {data.itin.date.total_days} days</Text>
-                            : <Text style={{ ...styles.total, marginTop: 0 }}> {data.itin.date.total_days} day</Text>
+                                ? <Text style={{ ...styles.total, marginTop: 0 }}> {data.itin.date.total_days} days</Text>
+                                : <Text style={{ ...styles.total, marginTop: 0 }}> {data.itin.date.total_days} day</Text>
                         }
-                        <TouchableOpacity onPress={seeMap}>
-                            <Text style={{ ...styles.total, textTransform: "uppercase", letterSpacing: 3 }}>SEE MAPS</Text>
+                        <TouchableOpacity style={{ width: '100%', justifyContent: "center", alignItems: "center" }} onPress={seeMap}>
+                            <Text style={{
+                                ...styles.total,
+                                textTransform: "uppercase",
+                                letterSpacing: 3,
+                                width: "50%",
+                                borderRadius: 20,
+                                borderWidth: 1,
+                                color: "#f9b517",
+                                borderColor: "#e5f6f4",
+                                paddingTop: 5,
+
+                            }}>
+                                EXPLORE IN MAPS
+                            </Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -265,9 +280,9 @@ const styles = StyleSheet.create({
     },
     titleCol: {
         textAlign: "center",
-        fontFamily: 'Poppins-Medium',
+        fontFamily: 'Poppins-SemiBold',
         fontSize: 20,
-        fontWeight: 'bold',
+        // fontWeight: 'bold',
         color: 'white',
         letterSpacing: 0.15,
     },

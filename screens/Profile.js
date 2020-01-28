@@ -236,7 +236,7 @@ export default function Profile(props) {
                                 >
                                     <View style={styles.descCard}>
                                         <Image
-                                            source={{ uri: `https://source.unsplash.com/1600x900/?${data[0].location.name}` ? `https://source.unsplash.com/1600x900/?${data[0].location.name}` : featured_image[random()] }}
+                                            source={{ uri: `https://source.unsplash.com/1600x900/?${data[0].location.name}%20city` ? `https://source.unsplash.com/1600x900/?${data[0].location.name}%20city` : featured_image[random()] }}
                                             style={styles.imageCard}
                                         />
                                         <Text style={styles.titleRest}>{data[0].location.name}</Text>
@@ -252,7 +252,7 @@ export default function Profile(props) {
                                 </TouchableHighlight>
                             </View>
                         </View>
-                        <View style={{ marginLeft: 25, left: 20, top: -20, width: width, bottom: 25 }}>
+                        <View style={{ marginLeft: 25, left: 20, top: -20, width: width, bottom: 25, paddingRight: 40 }}>
                             <Text style={styles.title}>LATEST TRIPS</Text>
                             <ScrollView
                                 horizontal={true}
@@ -321,7 +321,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 5,
         fontWeight: '600',
         fontSize: 12,
-        fontFamily: 'Quicksand-Medium'
+        fontFamily: 'Poppins-SemiBold'
     },
     header: {
         width: '100%',

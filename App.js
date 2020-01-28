@@ -19,6 +19,7 @@ export default function App() {
       'Lionthine': require('./assets/fonts/Lionthine.ttf'),
       'Wonderkids': require('./assets/fonts/Wonderkids.ttf'),
       'Poppins-Medium': require('./assets/fonts/Poppins-Medium.ttf'),
+      'Poppins-SemiBold': require('./assets/fonts/Poppins-SemiBold.ttf'),
       'Quicksand-Medium': require('./assets/fonts/Quicksand-Medium.ttf')
     })
       .then(() => {
@@ -27,7 +28,7 @@ export default function App() {
   }, [])
 
   useEffect(() => {
-    // AsyncStorage.removeItem('Access-Token')
+    AsyncStorage.removeItem('Access-Token')
     AsyncStorage.getItem('Access-Token')
       .then(data => {
         console.log(data, "------------------")

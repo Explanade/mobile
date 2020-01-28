@@ -8,6 +8,7 @@ import {
     Dimensions,
 } from "react-native";
 import MapView, { Marker } from "react-native-maps";
+import { LinearGradient } from "expo-linear-gradient";
 const { width, height } = Dimensions.get("window");
 const CARD_HEIGHT = height / 3;
 const CARD_WIDTH = CARD_HEIGHT - 10;
@@ -32,8 +33,10 @@ export default function Maps(props) {
                 description: activity.formatted_address,
                 image: activity.photo
             }
+            console.log(activity)
             temp.push(newObj)
         }
+        console.log(markers, "=======================================================")
         setMarkers(temp)
     }, [])
 
@@ -95,6 +98,7 @@ export default function Maps(props) {
 
     return (
         <View style={styles.container}>
+            {/* <LinearGradient></LinearGradient> */}
             <MapView
                 ref={map => setMaps(map)}
                 initialRegion={region}
@@ -141,26 +145,44 @@ export default function Maps(props) {
                 contentContainerStyle={styles.endPadding}
             >
                 {markers.map((marker, index) => (
-                    <View style={styles.card} key={index}>
-                        <Image
-                            source={{ uri: marker.image }}
-                            style={styles.cardImage}
-                            resizeMode="cover"
-                        />
-                        <View style={styles.textContent}>
-                            <Text numberOfLines={1} style={styles.cardtitle}>{marker.title}</Text>
-                            <Text numberOfLines={1}>{marker.description}</Text>
+                    <View key={index} style={styles.shadowContainer}>
+
+                        <View>
+                            <Image
+                                source={{ uri: marker.image }}
+                                style={styles.imageCard}
+                            />
+                            <Text
+                                textBreakStrategy="balanced"
+                                // numberOfLines={3}
+                                // ellipsizeMode={'tail'}
+                                style={styles.titleRest}
+                            >{marker.title}</Text>
+                            {/* <Text numberOfLines={1} style={{
+                                ...styles.titleRest,
+                                fontSize: 11,
+                                letterSpacing: 1,
+                            }}>{marker.description}</Text> */}
                         </View>
                     </View>
+
                 ))}
             </Animated.ScrollView>
         </View>
     );
 }
 const styles = StyleSheet.create({
+    layer: {
+        flex: 1,
+        width: '100%',
+        position: 'absolute',
+        backgroundColor: 'rgba(0,0,0, 0.5)',
+        height,
+        zIndex: 10
+    },
     shadowContainer: {
         borderRadius: 15,
-        margin: 5,
+        margin: 10,
         elevation: 8,
         // backgroundColor: 'black',
         shadowOffset: { height: 4 },
@@ -169,8 +191,33 @@ const styles = StyleSheet.create({
         shadowRadius: 5,
         justifyContent: "center",
         alignItems: "center",
-        width: 190,
+        width: CARD_WIDTH,
         height: 120,
+    },
+    imageCard: {
+        width: CARD_WIDTH,
+        height: 120,
+        resizeMode: 'cover',
+        borderRadius: 15,
+    },
+    titleRest: {
+        textAlign: "center",
+        borderRadius: 15,
+        width: CARD_WIDTH,
+        height: 120,
+        paddingTop: 50,
+        paddingHorizontal: 10,
+        color: 'white',
+        textAlign: "center",
+        fontWeight: 'bold',
+        fontSize: 11,
+        letterSpacing: 2,
+        textShadowColor: "black",
+        backgroundColor: "rgba(83,82,75, 0.4)",
+        position: "absolute",
+        zIndex: 10,
+        borderWidth: 3,
+        borderColor: "white"
     },
     container: {
         flex: 1,

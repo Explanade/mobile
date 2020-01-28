@@ -1,12 +1,8 @@
 {
-  "hostType": "localhost",
-  "lanType": "ip",
   "dev": true,
   "minify": false,
-<<<<<<< HEAD
-  "urlRandomness": "kx-rd6",
-=======
-  "urlRandomness": "2n-gvh",
->>>>>>> 90b98fc93ef9daf5d8a7a6ff5379c89d1d938bd4
+  "hostType": "localhost",
+  "lanType": "ip",
+  "urlRandomness": "hu-b4t",
   "https": false
 }

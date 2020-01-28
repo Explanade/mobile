@@ -62,7 +62,7 @@ export default function Card({ itin, featured_image, navigation }) {
                         source={{ uri: featured_image }}
                         style={styles.imageCard}
                     />
-                    <Text style={styles.titleRest}>{itin.location.name ? itin.location.name : itin.name}</Text>
+                    <Text style={styles.titleRest}>{itin.location.name}</Text>
                 </View>
             </TouchableHighlight>
 
