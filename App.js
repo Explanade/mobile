@@ -30,7 +30,6 @@ export default function App() {
     // AsyncStorage.removeItem('Access-Token')
     AsyncStorage.getItem('Access-Token')
       .then(data => {
-        console.log(data, "------------------")
         if (data) {
           store.dispatch({
             type: 'SET_USER_SESSION',

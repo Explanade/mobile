@@ -47,7 +47,7 @@ export default class Timeline extends PureComponent {
             data: this.props.data,
             x: 0,
             width: 0,
-            checked: false
+            checked: false,
         };
     }
 
@@ -325,7 +325,7 @@ export default class Timeline extends PureComponent {
                         }}
                     > {rowData.rating}</Text>
                 </FontAwesome>
-                <Checkbox status={Boolean(rowData.status)} place_id={rowData.id} activity_id={this.props.day._id}></Checkbox>
+                <Checkbox status={Boolean(rowData.status)} itinDetail={this.props.itinDetail} setItinDetail={this.props.setItinDetail} place_id={rowData.id} activity_id={this.props.day._id}></Checkbox>
             </View >
         );
     }

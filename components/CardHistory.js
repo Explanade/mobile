@@ -55,7 +55,7 @@ export default function Card({ itin, featured_image, navigation }) {
             {/* <Text> {JSON.stringify(itin)}</Text> */}
             <TouchableHighlight
                 style={{ borderRadius: 15 }}
-                onPress={() => navigation.navigate('Itinerary', { data: { itin, imagez: featured_image } })}
+                onPress={() => navigation.navigate('Itinerary', { data: { itinId: itin._id,itin, imagez: featured_image } })}
             >
                 <View>
                     <Image
@@ -63,6 +63,7 @@ export default function Card({ itin, featured_image, navigation }) {
                         style={styles.imageCard}
                     />
                     <Text style={styles.titleRest}>{itin.location.name ? itin.location.name : itin.name}</Text>
+                    <Text style={styles.titleRest}>{itin._id}</Text>
                 </View>
             </TouchableHighlight>
 

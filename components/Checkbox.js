@@ -4,11 +4,15 @@ import { View, Text } from 'react-native'
 
 import axios from '../config/client'
 import { AsyncStorage } from 'react-native'
+import { useDispatch, useSelector } from 'react-redux';
 
 
 
 export default function Checkbox(props) {
     const [status, setStatus] = useState('')
+    const dispatch = useDispatch()
+    const { data: reduxItin } = useSelector(state => state.itinerary)
+    const { setItinDetail, itinDetail } = props;
 
     useEffect(() => {
         setStatus(props.status)
@@ -18,7 +22,6 @@ export default function Checkbox(props) {
         AsyncStorage.getItem('Access-Token')
             .then(data => {
                 data = JSON.parse(data)
-                console.log(data.token)
                 return axios({
                     url: `/activities/${payload.activity_id}`,
                     method: 'patch',
@@ -30,8 +33,18 @@ export default function Checkbox(props) {
                 })
             })
             .then(({ data }) => {
-                console.log(data)
-                console.log('berhasil update')
+                let updatedItin = [];
+                reduxItin.map(itin => {
+                    if (itin._id == data._id) {
+                        updatedItin.push(data)
+                    } else {
+                        updatedItin.push(itin)
+                    }
+                })
+                dispatch({
+                    type: 'UPDATE_ACTIVITY_STATUS',
+                    itin: updatedItin
+                })
             })
             .catch(err => {
                 console.log(err)
@@ -44,6 +57,17 @@ export default function Checkbox(props) {
             place_id: props.place_id,
             status: !status
         }
+
+        let itinTemp = []
+        for (let i = 0; i < itinDetail.length; i++) {
+            if (itinDetail[i].id == props.place_id) {
+                itinDetail[i].status = !itinDetail[i].status
+                itinTemp.push(itinDetail[i]);
+            } else {
+                itinTemp.push(itinDetail[i])
+            }
+        }
+        setItinDetail(itinTemp)
         setStatus(!status)
         changeStatus(activityData)
     }

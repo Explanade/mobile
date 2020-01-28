@@ -51,7 +51,6 @@ export default function Maps(props) {
         if (index <= 0) {
             index = 0;
         }
-        console.log(index)
     }
 
     const [region, setRegion] = useState({
