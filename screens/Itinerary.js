@@ -56,6 +56,13 @@ export default function Itinerary(props) {
         setLoading(false);
     }
 
+    const seeMap = () => {
+        props.navigation.push('MapView', { data: itinDetail, location: {
+            latitude: itinerary.location.lat,
+            longitude: itinerary.location.lng
+        }})
+    }
+
     return (
         <SafeAreaView style={styles.container}>
             <StatusBar
@@ -93,9 +100,12 @@ export default function Itinerary(props) {
                         <Text style={{ ...styles.total, textTransform: "uppercase", letterSpacing: 3 }}> {data.itin.location.name}</Text>
                         {
                             data.itin.date.total_days > 1
-                                ? <Text style={{ ...styles.total, marginTop: 0 }}> {data.itin.date.total_days} days</Text>
-                                : <Text style={{ ...styles.total, marginTop: 0 }}> {data.itin.date.total_days} day</Text>
+                            ? <Text style={{ ...styles.total, marginTop: 0 }}> {data.itin.date.total_days} days</Text>
+                            : <Text style={{ ...styles.total, marginTop: 0 }}> {data.itin.date.total_days} day</Text>
                         }
+                        <TouchableOpacity onPress={seeMap}>
+                            <Text style={{ ...styles.total, textTransform: "uppercase", letterSpacing: 3 }}>SEE MAPS</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
                 <View style={styles.content}>
@@ -157,7 +167,6 @@ export default function Itinerary(props) {
                                 />
                             )
                     }
-
                 </View>
             </View>
         </SafeAreaView >

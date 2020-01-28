@@ -3,6 +3,10 @@
   "lanType": "ip",
   "dev": true,
   "minify": false,
+<<<<<<< HEAD
   "urlRandomness": "kx-rd6",
+=======
+  "urlRandomness": "2n-gvh",
+>>>>>>> 90b98fc93ef9daf5d8a7a6ff5379c89d1d938bd4
   "https": false
 }

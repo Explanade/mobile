@@ -27,7 +27,7 @@ export default function App() {
   }, [])
 
   useEffect(() => {
-    AsyncStorage.removeItem('Access-Token')
+    // AsyncStorage.removeItem('Access-Token')
     AsyncStorage.getItem('Access-Token')
       .then(data => {
         console.log(data, "------------------")
