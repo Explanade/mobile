@@ -3,7 +3,7 @@ import { StatusBar, TouchableOpacity, View, Text } from 'react-native'
 import { createAppContainer, createSwitchNavigator } from 'react-navigation'
 import { createMaterialTopTabNavigator } from 'react-navigation-tabs'
 import { createStackNavigator } from 'react-navigation-stack'
-import { Entypo, MaterialCommunityIcons, FontAwesome5 } from 'react-native-vector-icons'
+import { FontAwesome, MaterialCommunityIcons, FontAwesome5 } from 'react-native-vector-icons'
 import { AsyncStorage } from 'react-native'
 
 
@@ -13,6 +13,8 @@ import LoginPage from './screens/LoginPage'
 import Profile from './screens/Profile'
 import Itinerary from './screens/Itinerary'
 import MapView from './screens/MapView'
+import Complete from './screens/Complete'
+
 
 
 const HomeNavigator = createStackNavigator({
@@ -57,10 +59,51 @@ const HomeNavigator = createStackNavigator({
                             <FontAwesome5 name={'chevron-left'} style={{ fontSize: 20, color: 'goldenrod' }} />
                         </TouchableOpacity>
                     </View>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate('Complete')}
+                        style={{
+                            paddingHorizontal: 25,
+                            paddingLeft: 30,
+                            paddingTop: 40,
+                            justifyContent: "center",
+                            alignItems: "center",
+                            marginBottom: 10
+                        }}
+                    >
+                        <FontAwesome name={'dollar'}
+                            style={{
+                                fontSize: 20,
+                                color: 'white',
+                                borderRadius: 50,
+                                width: 30, height: 30,
+                                backgroundColor: "goldenrod",
+                                textAlign: "center",
+                                paddingTop: 5,
+                            }} />
+                    </TouchableOpacity>
                 </View>
             ),
             headerTransparent: true
-
+        })
+    }, Complete: {
+        screen: Complete,
+        navigationOptions: () => ({
+            header: ({ navigation }) => (
+                <View style={{
+                    height: StatusBar.currentHeight + 70,
+                    justifyContent: 'space-between',
+                    flexDirection: 'row',
+                    alignItems: 'flex-end',
+                    paddingHorizontal: 15,
+                }}>
+                    <View style={{ flexDirection: 'row', marginBottom: 10 }}>
+                        <TouchableOpacity onPress={() => navigation.goBack()} style={{ paddingHorizontal: 30, paddingTop: 40 }}>
+                            <FontAwesome5 name={'chevron-left'} style={{ fontSize: 20, color: 'goldenrod' }} />
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            ),
+            headerTransparent: true
         })
     },
     MapView: {
