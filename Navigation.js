@@ -27,7 +27,7 @@ const HomeNavigator = createStackNavigator({
                         textAlign: 'right',
                         paddingHorizontal: 15,
                     }}>
-                    <TouchableOpacity onPress={() => navigation.navigate('Search')}>
+                    <TouchableOpacity onPress={() => navigation.navigate('MapView')}>
                         <Entypo name={'menu'} style={{ color: '#2b2d39', fontSize: 30, marginRight: 20, textAlign: 'right' }} />
                     </TouchableOpacity>
                 </View>

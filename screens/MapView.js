@@ -8,6 +8,8 @@ import {
     Dimensions,
 } from "react-native";
 import MapView, { Marker } from "react-native-maps";
+import CardHistory from '../components/CardHistory'
+
 const Images = [
     { uri: "https://i.imgur.com/sNam9iJ.jpg" },
     { uri: "https://i.imgur.com/N7rlQYt.jpg" },
@@ -18,6 +20,7 @@ const { width, height } = Dimensions.get("window");
 const CARD_HEIGHT = height / 3;
 const CARD_WIDTH = CARD_HEIGHT - 10;
 
+
 export default function Maps(props) {
     const [animation, setAnimation] = useState(new Animated.Value(0))
     const [markers, setMarkers] = useState([
@@ -26,7 +29,7 @@ export default function Maps(props) {
                 latitude: 45.524548,
                 longitude: -122.6749817,
             },
-            title: "Best Place",
+            name: "Best Place",
             description: "This is the best place in Portland",
             image: Images[0],
         },
@@ -35,7 +38,7 @@ export default function Maps(props) {
                 latitude: 45.524698,
                 longitude: -122.6655507,
             },
-            title: "Second Best Place",
+            name: "Second Best Place",
             description: "This is the second best place in Portland",
             image: Images[1],
         },
@@ -44,7 +47,7 @@ export default function Maps(props) {
                 latitude: 45.5230786,
                 longitude: -122.6701034,
             },
-            title: "Third Best Place",
+            name: "Third Best Place",
             description: "This is the third best place in Portland",
             image: Images[2],
         },
@@ -53,7 +56,7 @@ export default function Maps(props) {
                 latitude: 45.521016,
                 longitude: -122.6561917,
             },
-            title: "Fourth Best Place",
+            name: "Fourth Best Place",
             description: "This is the fourth best place in Portland",
             image: Images[3],
         },
@@ -126,22 +129,43 @@ export default function Maps(props) {
                 contentContainerStyle={styles.endPadding}
             >
                 {markers.map((marker, index) => (
-                    <View style={styles.card} key={index}>
-                        <Image
-                            source={marker.image}
-                            style={styles.cardImage}
-                            resizeMode="cover"
+                    <View key={index} style={styles.shadowContainer}>
+                        <CardHistory
+                            itin={marker}
+                            navigation={props.navigation}
+                            featured_image={Images[index].uri}
                         />
-                        <View style={styles.textContent}>
-                            <Text numberOfLines={1} style={styles.cardtitle}>{marker.title}</Text>
-                        </View>
                     </View>
+                    // <View style={styles.card} key={index}>
+                    //     <Image
+                    //         source={marker.image}
+                    //         style={styles.cardImage}
+                    //         resizeMode="cover"
+                    //     />
+                    //     <View style={styles.textContent}>
+                    //         <Text numberOfLines={1} style={styles.cardname}>{marker.name}</Text>
+                    //     </View>
+                    // </View>
                 ))}
             </Animated.ScrollView>
         </View>
     );
 }
 const styles = StyleSheet.create({
+    shadowContainer: {
+        borderRadius: 15,
+        margin: 5,
+        elevation: 8,
+        // backgroundColor: 'black',
+        shadowOffset: { height: 4 },
+        shadowColor: "black",
+        shadowOpacity: 0.8,
+        shadowRadius: 5,
+        justifyContent: "center",
+        alignItems: "center",
+        width: 190,
+        height: 120,
+    },
     container: {
         flex: 1,
         width: '100%',

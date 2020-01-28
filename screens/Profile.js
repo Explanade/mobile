@@ -21,162 +21,6 @@ import { useSelector } from 'react-redux'
 const { width, height } = Dimensions.get('window')
 import useItinerary from '../hooks/useItinerary';
 
-const itineraries = [{
-    location: {
-        name: "Bandung",
-        lat: -6.903429,
-        lng: 107.5030708
-    },
-    date: {
-        start: "2020-01-19T17:00:00.000Z",
-        end: "2020-01-21T17:00:00.000Z",
-        total_days: 2
-    },
-    activities: [
-        {
-            _id: "5e2b59d896caab340f12b1e5",
-            date: "2020-10-20T00:00:00.000Z",
-            places: [
-                {
-                    photos: [
-                        {
-                            _id: "5e2b59d896caab340f12b1eb",
-                            height: 2000,
-                            photo_reference: "CmRZAAAAdVXkIMqx0bb0kfvanKqpF4bmhjLgSbjT_fujI2kb7ZfINzA7gQDep30ElJBV3g74yogDIIXwPXJTZ6XXOSPGOe8wetB3r_is-9dZBoc29UV_TPW7knJ6QyaorGyxN3gsEhDkN-lbEofvMx8fYZKg4FivGhSjQ1yIC-3jEHdwX-MWb-QNoRfWHw",
-                            width: 3008
-                        }
-                    ],
-                    time: '09:00',
-                    _id: "5e2b59d896caab340f12b1ea",
-                    status: false,
-                    order: 1,
-                    formatted_address: "Jl. Pura Dalem Lovina Singaraja, Desa, Anturan, Kec. Buleleng, Kabupaten Buleleng, Bali 81119, Indonesia",
-                    lat: -8.149365,
-                    lng: 115.0493949,
-                    icon: "https://maps.gstatic.com/mapfiles/place_api/icons/restaurant-71.png",
-                    id: "69493390994402db96ce08fc41c43abbcf5559f8",
-                    title: "Secret Garden Restaurant",
-                    place_id: "ChIJu7Db_-Ka0S0RSyHGifETfxs",
-                    price_level: 2,
-                    rating: 4.6,
-                    user_ratings_total: 269
-                }
-            ],
-            __v: 0
-        }
-    ],
-    reviews: [
-        "5e2ad8c86722641dfa880cff"
-    ],
-    _id: "5e2ad7de751f171deef9db9f",
-    name: "My Awesome Trip",
-    user_id: "5e2ab24285fb6f17f71f4d73",
-    __v: 0
-},
-{
-    location: {
-        name: "Bali",
-        lat: -6.903429,
-        lng: 107.5030708
-    },
-    date: {
-        start: "2020-01-19T17:00:00.000Z",
-        end: "2020-01-21T17:00:00.000Z",
-        total_days: 2
-    },
-    activities: [
-        {
-            _id: "5e2b59d896caab340f12b1e5",
-            date: "2020-10-20T00:00:00.000Z",
-            places: [
-                {
-                    photos: [
-                        {
-                            _id: "5e2b59d896caab340f12b1eb",
-                            height: 2000,
-                            photo_reference: "CmRZAAAAdVXkIMqx0bb0kfvanKqpF4bmhjLgSbjT_fujI2kb7ZfINzA7gQDep30ElJBV3g74yogDIIXwPXJTZ6XXOSPGOe8wetB3r_is-9dZBoc29UV_TPW7knJ6QyaorGyxN3gsEhDkN-lbEofvMx8fYZKg4FivGhSjQ1yIC-3jEHdwX-MWb-QNoRfWHw",
-                            width: 3008
-                        }
-                    ],
-                    time: '09:00',
-                    _id: "5e2b59d896caab340f12b1ea",
-                    status: false,
-                    order: 1,
-                    formatted_address: "Jl. Pura Dalem Lovina Singaraja, Desa, Anturan, Kec. Buleleng, Kabupaten Buleleng, Bali 81119, Indonesia",
-                    lat: -8.149365,
-                    lng: 115.0493949,
-                    icon: "https://maps.gstatic.com/mapfiles/place_api/icons/restaurant-71.png",
-                    id: "69493390994402db96ce08fc41c43abbcf5559f8",
-                    title: "Secret Garden Restaurant",
-                    place_id: "ChIJu7Db_-Ka0S0RSyHGifETfxs",
-                    price_level: 2,
-                    rating: 4.6,
-                    user_ratings_total: 269
-                }
-            ],
-            __v: 0
-        }
-    ],
-    reviews: [
-        "5e2ad8c86722641dfa880cff"
-    ],
-    _id: "5e2ad7de751f171deef9db9f",
-    name: "My Awesome Trip",
-    user_id: "5e2ab24285fb6f17f71f4d73",
-    __v: 0
-}, {
-    location: {
-        name: "Bali",
-        lat: -6.903429,
-        lng: 107.5030708
-    },
-    date: {
-        start: "2020-01-19T17:00:00.000Z",
-        end: "2020-01-21T17:00:00.000Z",
-        total_days: 2
-    },
-    activities: [
-        {
-            _id: "5e2b59d896caab340f12b1e5",
-            date: "2020-10-20T00:00:00.000Z",
-            places: [
-                {
-                    photos: [
-                        {
-                            _id: "5e2b59d896caab340f12b1eb",
-                            height: 2000,
-                            photo_reference: "CmRZAAAAdVXkIMqx0bb0kfvanKqpF4bmhjLgSbjT_fujI2kb7ZfINzA7gQDep30ElJBV3g74yogDIIXwPXJTZ6XXOSPGOe8wetB3r_is-9dZBoc29UV_TPW7knJ6QyaorGyxN3gsEhDkN-lbEofvMx8fYZKg4FivGhSjQ1yIC-3jEHdwX-MWb-QNoRfWHw",
-                            width: 3008
-                        }
-                    ],
-                    time: '09:00',
-                    _id: "5e2b59d896caab340f12b1ea",
-                    status: false,
-                    order: 1,
-                    formatted_address: "Jl. Pura Dalem Lovina Singaraja, Desa, Anturan, Kec. Buleleng, Kabupaten Buleleng, Bali 81119, Indonesia",
-                    lat: -8.149365,
-                    lng: 115.0493949,
-                    icon: "https://maps.gstatic.com/mapfiles/place_api/icons/restaurant-71.png",
-                    id: "69493390994402db96ce08fc41c43abbcf5559f8",
-                    title: "Secret Garden Restaurant",
-                    place_id: "ChIJu7Db_-Ka0S0RSyHGifETfxs",
-                    price_level: 2,
-                    rating: 4.6,
-                    user_ratings_total: 269
-                }
-            ],
-            __v: 0
-        }
-    ],
-    reviews: [
-        "5e2ad8c86722641dfa880cff"
-    ],
-    _id: "5e2ad7de751f171deef9db9f",
-    name: "My Awesome Trip",
-    user_id: "5e2ab24285fb6f17f71f4d73",
-    __v: 0
-}]
-
 const featured_image = [
     'https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=300&q=60',
     'https://images.unsplash.com/photo-1501785888041-af3ef285b470?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=300&q=60',
@@ -189,15 +33,9 @@ const featured_image = [
     'https://images.unsplash.com/photo-1485601284679-a2f86e6f7dea?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=300&q=60'
 ]
 
-const profile = {
-    name: "Afifah Rahma K",
-    profile_picture: `https://ui-avatars.com/api/?name=Afifah&rounded=true`
-}
-
 export default function Profile(props) {
 
     const [itinerary, setItinerary] = useState({});
-    // const [loading, setLoading] = useState(false);
     const [refresh, setRefresh] = useState(false);
     const [location, setLocation] = useState({})
     const [address, setAddress] = useState([])
@@ -213,29 +51,17 @@ export default function Profile(props) {
 
     const { data, loading, error } = useItinerary();
 
-    console.log(data)
-    function getSum(total, num) {
-        return total + Math.round(num);
-    }
-
-    function wait(timeout) {
-        return new Promise(resolve => {
-            setTimeout(resolve, timeout);
-        });
-    }
-    const onRefresh = useCallback(() => {
-        setRefresh(true);
-        wait(1500).then(() => {
-            setRefresh(false);
-        });
-    }, [refresh]);
-
     useEffect(() => {
         if (!isLogin) {
             props.navigation.navigate('LoginPage')
         }
-        setDayz((data.map(item => { return item.date.total_days })).reduce(getSum, 0))
-    }, []);
+    }, [isLogin]);
+
+    useEffect(() => {
+        if (data) {
+            setDayz((data.map(item => { return item.date.total_days })).reduce(getSum, 0))
+        }
+    }, [data])
 
     useEffect(() => {
         async function getLocation() {
@@ -255,6 +81,47 @@ export default function Profile(props) {
         }
         getLocation()
     }, [])
+
+    function getSum(total, num) {
+        return total + Math.round(num);
+    }
+
+    function random() {
+        let num = Math.floor(Math.random() * featured_image.length)
+        return num
+    }
+
+    function wait(timeout) {
+        return new Promise(resolve => {
+            setTimeout(resolve, timeout);
+        });
+    }
+    const onRefresh = useCallback(() => {
+        setRefresh(true);
+        wait(1500).then(() => {
+            getLocation()
+            setDayz((data.map(item => { return item.date.total_days })).reduce(getSum, 0))
+            setRefresh(false);
+        });
+    }, [refresh]);
+
+
+
+    async function getLocation() {
+        let { status } = await Permissions.askAsync(Permissions.LOCATION);
+        if (status !== 'granted') {
+            console.log('error')
+        }
+
+        let location = await Location.getCurrentPositionAsync({});
+        setLocation({ location })
+        const a = await Location.reverseGeocodeAsync({
+            latitude: location.coords.latitude,
+            longitude: location.coords.longitude
+        })
+        setAddress(a)
+        console.log(address)
+    }
 
     if (data.length > 0) {
         return (
@@ -320,25 +187,24 @@ export default function Profile(props) {
                                         fontSize: 15,
                                         color: '#fdcf48',
                                         paddingBottom: 0,
-                                        marginLeft: -10
+                                        // marginLeft: -10
                                     }} >
                                     <Text style={{
                                         ...styles.total,
                                         color: '#154036',
-                                        color: 'black',
+                                        color: 'white',
                                         fontSize: 13,
                                         width: '80%',
                                         textAlign: "left",
-                                        paddingBottom: 0,
-                                        fontWeight: '600',
+                                        fontWeight: '700',
                                         letterSpacing: 1
-                                    }}>   YOU'RE IN </Text>
+                                    }}> YOU'RE IN</Text>
                                 </FontAwesome5>
                                 <Text
                                     style={{
                                         ...styles.total,
                                         color: 'white',
-                                        fontSize: 9,
+                                        fontSize: 10,
                                         width: '70%',
                                         textAlign: "center",
                                         margin: 0,
@@ -347,7 +213,7 @@ export default function Profile(props) {
                                 >
                                     {
                                         address.length >= 1
-                                            ? ` ${address[0].city.split(' ').slice(1, 3).join(' ')}\n ${address[0].region} \n ${address[0].country}`
+                                            ? ` ${address[0].city.split(' ').slice(1, 3).join(' ')}\n ${address[0].region} ,${address[0].country}`
                                             : 'Jakarta'
                                     }
                                 </Text>
@@ -358,7 +224,7 @@ export default function Profile(props) {
                             <Text
                                 style={{
                                     ...styles.title,
-                                    paddingLeft: 0,
+                                    paddingLeft: 8,
                                     marginBottom: 9,
                                 }}
                             >ONGOING TRIP</Text>
@@ -366,11 +232,11 @@ export default function Profile(props) {
                             <View>
                                 <TouchableHighlight
                                     style={styles.shadowContainer2}
-                                    onPress={() => props.navigation.navigate('Itinerary', { data: { itin: data[0], imagez: featured_image[4] } })}
+                                    onPress={() => props.navigation.navigate('Itinerary', { data: { itin: data[0], imagez: `https://source.unsplash.com/1600x900/?${data[0].location.name}` ? `https://source.unsplash.com/1600x900/?${data[0].location.name}` : featured_image[random()] } })}
                                 >
                                     <View style={styles.descCard}>
                                         <Image
-                                            source={{ uri: featured_image[4] }}
+                                            source={{ uri: `https://source.unsplash.com/1600x900/?${data[0].location.name}` ? `https://source.unsplash.com/1600x900/?${data[0].location.name}` : featured_image[random()] }}
                                             style={styles.imageCard}
                                         />
                                         <Text style={styles.titleRest}>{data[0].location.name}</Text>
@@ -379,14 +245,14 @@ export default function Profile(props) {
                                                 fontSize: 12,
                                                 ...styles.descRest
                                             }}>
-                                            {`${(data[0].date.start).split('T')[0]} - ${(data[0].date.end).split('T')[0]} `}
+                                            {`${(data[0].date.start).split('T')[0]} / ${(data[0].date.end).split('T')[0]} `}
                                             {`\n${data[0].date.total_days} days`}
                                         </Text>
                                     </View>
                                 </TouchableHighlight>
                             </View>
                         </View>
-                        <View style={{ marginLeft: 25 }}>
+                        <View style={{ marginLeft: 25, left: 20, top: -20, width: width, bottom: 25 }}>
                             <Text style={styles.title}>LATEST TRIPS</Text>
                             <ScrollView
                                 horizontal={true}
@@ -399,7 +265,7 @@ export default function Profile(props) {
                                             <CardHistory
                                                 itin={item}
                                                 navigation={props.navigation}
-                                                featured_image={featured_image[i]}
+                                                featured_image={featured_image[i] ? featured_image[i] : item.activities[i].places[0].photo}
                                             />
                                         </View>
                                     ))
@@ -426,7 +292,7 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 25,
         borderTopRightRadius: 25,
         backgroundColor: 'white',
-        top: -40,
+        top: -70,
         shadowColor: 'black',
         shadowOpacity: 5,
         shadowOffset: { width: 50, height: 50 },
@@ -447,35 +313,15 @@ const styles = StyleSheet.create({
         padding: 5
     },
     title: {
-        padding: 4,
+        // padding: 4,
         marginVertical: 5,
-        paddingLeft: 8,
+        paddingLeft: 5,
         color: 'black',
         letterSpacing: 3,
         marginHorizontal: 5,
         fontWeight: '600',
         fontSize: 12,
         fontFamily: 'Quicksand-Medium'
-    },
-    navbutton: {
-        flex: 1,
-        flexDirection: 'row',
-        alignItems: 'center',
-        borderTopWidth: 1,
-        borderColor: 'black',
-        borderTopRightRadius: 5,
-        borderTopLeftRadius: 5,
-        marginHorizontal: 10,
-        opacity: 0.6,
-    },
-    button: {
-        flexDirection: 'row',
-        borderWidth: 1,
-        borderColor: 'black',
-        borderRadius: 10,
-        marginHorizontal: 5,
-        marginVertical: 10,
-        padding: 10,
     },
     header: {
         width: '100%',
@@ -485,8 +331,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         paddingBottom: 20,
-        paddingLeft: 10,
-        paddingRight: 20,
+        paddingHorizontal: 10,
     },
     layer: {
         width: '100%',
@@ -507,12 +352,13 @@ const styles = StyleSheet.create({
         marginHorizontal: 10
     },
     titleCol: {
-        fontFamily: 'Poppins-Medium',
-        fontSize: 20,
-        fontWeight: 'bold',
+        fontFamily: 'Brittanian',
+        fontSize: 50,
+        fontWeight: '500',
         color: 'white',
         letterSpacing: 0.15,
-        marginHorizontal: 10
+        marginHorizontal: 10,
+        marginVertical: 20
     },
     pp: {
         width: 75,
@@ -530,48 +376,21 @@ const styles = StyleSheet.create({
         shadowRadius: 5,
         justifyContent: "center",
         alignItems: "center",
-        height: 100,
-        width: 155
-    },
-    shadowLocation: {
-        marginHorizontal: 15,
-        marginTop: -40,
-        marginBottom: 5,
-        alignItems: 'center',
-        justifyContent: 'center',
-        position: 'absolute',
-        // backgroundColor: "rgba(0,0,0, 0.1)",
-        borderRadius: 5,
-        padding: 8,
-        // elevation: 6,
-        // shadowOffset: {height: 4 },
-        // shadowColor: "black",
-        // shadowOpacity: 0.8,
-        // shadowRadius: 5,
-        height: '8%',
-        // borderWidth: 2,
-        // borderColor: 'white'
-
-    },
-    location: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        // backgroundColor: "white",
-        // borderRadius: 20,
-        // padding: 10
+        width: 190,
+        height: 120,
     },
     shadowLocation2: {
         marginHorizontal: 15,
-        marginTop: -125,
+        marginTop: -79,
         marginBottom: 5,
         alignItems: 'center',
         justifyContent: 'center',
         position: 'absolute',
-        // backgroundColor: "rgba(0,0,0, 0.1)",
-        borderRadius: 5,
+        // backgroundColor: "#e5f6f4",
+        borderRadius: 25,
         padding: 8,
-        // elevation: 6,
-        // shadowOffset: {height: 4 },
+        // elevation: 3,
+        // shadowOffset: { height: 4 },
         // shadowColor: "black",
         // shadowOpacity: 0.8,
         // shadowRadius: 5,
@@ -580,18 +399,19 @@ const styles = StyleSheet.create({
 
     },
     location2: {
+        color: 'black',
+        top: 5,
         flexDirection: 'column',
         alignItems: 'center',
-        // backgroundColor: "white",
-        // borderRadius: 20,
-        // padding: 10
+        padding: 10,
+        paddingBottom: -10
     },
     imageCard: {
         width: 340,
-        height: 180,
+        height: 200,
         resizeMode: 'cover',
         borderRadius: 10,
-        marginTop: -20
+        marginTop: -30
     },
     shadowContainer2: {
         borderRadius: 15,
@@ -604,7 +424,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         width: 350,
-        height: 250,
+        height: 280,
     },
     descCard: {
         width: 350,

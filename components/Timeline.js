@@ -8,11 +8,12 @@ import {
     View,
     Text,
     TouchableOpacity,
-    CheckBox,
     Linking,
     TouchableHighlight,
 } from "react-native";
 import { FontAwesome } from '@expo/vector-icons';
+import Checkbox from '../components/Checkbox'
+
 
 
 const defaultCircleSize = 16;
@@ -45,7 +46,8 @@ export default class Timeline extends PureComponent {
         this.state = {
             data: this.props.data,
             x: 0,
-            width: 0
+            width: 0,
+            checked: false
         };
     }
 
@@ -58,6 +60,7 @@ export default class Timeline extends PureComponent {
 
         return null;
     }
+
 
     render() {
         return (
@@ -160,12 +163,12 @@ export default class Timeline extends PureComponent {
             <View style={timeWrapper}>
                 <View style={[styles.timeContainer, this.props.timeContainerStyle]}>
                     <Text style={[styles.time, this.props.timeStyle]}>
-                        {rowData.order}
+                        {rowData.order + 1}
                     </Text>
                 </View>
 
                 {
-                    rowData.photos.length !== 0
+                    rowData.photo
                         ? (
                             <View style={styles.shadowContainer}>
                                 <Image
@@ -289,6 +292,7 @@ export default class Timeline extends PureComponent {
     }
 
     _renderDetail(rowData, rowID) {
+
         let description;
         if (typeof rowData.formatted_address === 'string') {
             description = (
@@ -303,7 +307,7 @@ export default class Timeline extends PureComponent {
         return (
             <View style={styles.container}>
                 <Text style={[styles.title, this.props.titleStyle, rowData.titleStyle]}>
-                    {rowData.title}
+                    {rowData.name}
                 </Text>
                 <Text
                     style={{
@@ -312,7 +316,6 @@ export default class Timeline extends PureComponent {
                         fontFamily: 'Poppins-Medium'
                     }}
                 >{description} </Text>
-                {/* <View style={{ flexDirection: "row", justifyContent: 'space-between', alignItems: "center" }}> */}
                 <FontAwesome name={'star'} style={{ fontSize: 12, color: '#f9b517' }}>
                     <Text
                         style={{
@@ -322,20 +325,7 @@ export default class Timeline extends PureComponent {
                         }}
                     > {rowData.rating}</Text>
                 </FontAwesome>
-                <View style={{ flexDirection: 'row', alignItems: "center", marginLeft: -7 }}>
-                    <CheckBox
-                        // style={{ width: 5 }}
-                        checked={this.state.checked}
-                        value={rowData.status}
-                        onValueChange={() => this.setState({ checked: !this.state.checked })}
-                    />
-                    <Text style={{
-                        color: !this.state.checked ? 'grey' : '#154036',
-                        fontSize: 10,
-                        fontFamily: 'Poppins-Medium'
-                    }}> complete</Text>
-                </View>
-                {/* </View> */}
+                <Checkbox status={Boolean(rowData.status)} place_id={rowData.id} activity_id={this.props.day._id}></Checkbox>
             </View >
         );
     }

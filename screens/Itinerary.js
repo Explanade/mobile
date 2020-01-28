@@ -21,17 +21,17 @@ export default function Itinerary(props) {
     const [isLoading, setLoading] = useState(false);
     const [refresh, setRefresh] = useState(false);
     const [itinDetail, setItinDetail] = useState([]);
+    const [day, setDay] = useState('')
     const data = props.navigation.state.params.data
+    console.log(itinDetail)
 
-    const fetchData = () => {
+
+    useEffect(() => {
         setLoading(true)
         setItinerary(data.itin)
+        changedDay(0)
         setLoading(false);
-    }
-    useEffect(() => {
-        fetchData();
-        setItinerary(data.itin)
-        setItinDetail(data.itin.activities[0].places)
+
     }, [data.itin]);
 
     function wait(timeout) {
@@ -42,7 +42,9 @@ export default function Itinerary(props) {
     const onRefresh = useCallback(() => {
         setRefresh(true);
         wait(1500).then(() => {
-            fetchData();
+            setItinerary(data.itin)
+            // setItinDetail(data.itin.activities[index].places)
+            // setDay(data.itin.activities[index])
             setRefresh(false);
         });
     }, [refresh]);
@@ -50,8 +52,8 @@ export default function Itinerary(props) {
     const changedDay = (index) => {
         setLoading(true)
         setItinDetail(data.itin.activities[index].places)
+        setDay(data.itin.activities[index])
         setLoading(false);
-
     }
 
     return (
@@ -119,6 +121,7 @@ export default function Itinerary(props) {
                             : (
                                 <Timeline
                                     data={itinDetail}
+                                    day={day}
                                     circleSize={9}
                                     circleColor='#f8d05d'
                                     lineColor='#53524b'

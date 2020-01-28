@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
-import { TextInput, StyleSheet } from 'react-native'
+import { TextInput, StyleSheet, Dimensions } from 'react-native'
+const { width, height } = Dimensions.get('window')
+
 
 export default class TextInput2 extends Component {
     constructor(props) {
@@ -17,7 +19,17 @@ export default class TextInput2 extends Component {
         return <TextInput
             {...rest}
             onChange={this.handleChange}
-            style={this.state.placeholder ? [style, placeholderStyle] : style}
+            style={this.state.placeholder ? [style, {
+                width: '100%',
+                color: 'white',
+                fontSize: 11,
+                fontWeight: '700',
+                letterSpacing: 2,
+                textTransform: 'uppercase',
+                textAlign: "center",
+                width: width / 1.8,
+                fontFamily: 'Poppins-Medium',
+            },] : style}
         />
     }
 }

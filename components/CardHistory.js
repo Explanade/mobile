@@ -12,8 +12,8 @@ export default function Card({ itin, featured_image, navigation }) {
 
     const styles = StyleSheet.create({
         imageCard: {
-            width: 150,
-            height: 100,
+            width: 190,
+            height: 120,
             resizeMode: 'cover',
             borderRadius: 15,
         },
@@ -29,8 +29,8 @@ export default function Card({ itin, featured_image, navigation }) {
         },
         titleRest: {
             borderRadius: 15,
-            width: 150,
-            height: 100,
+            width: 190,
+            height: 120,
             paddingTop: 70,
             color: 'white',
             textAlign: "center",
@@ -51,17 +51,21 @@ export default function Card({ itin, featured_image, navigation }) {
     })
 
     return (
-        <TouchableHighlight
-            style={{ borderRadius: 15 }}
-            onPress={() => navigation.navigate('Itinerary', { data: { itin, imagez: featured_image } })}
-        >
-            <View>
-                <Image
-                    source={{ uri: featured_image }}
-                    style={styles.imageCard}
-                />
-                <Text style={styles.titleRest}>{itin.location.name}</Text>
-            </View>
-        </TouchableHighlight>
+        <View>
+            {/* <Text> {JSON.stringify(itin)}</Text> */}
+            <TouchableHighlight
+                style={{ borderRadius: 15 }}
+                onPress={() => navigation.navigate('Itinerary', { data: { itin, imagez: featured_image } })}
+            >
+                <View>
+                    <Image
+                        source={{ uri: featured_image }}
+                        style={styles.imageCard}
+                    />
+                    <Text style={styles.titleRest}>{itin.location.name ? itin.location.name : itin.name}</Text>
+                </View>
+            </TouchableHighlight>
+
+        </View>
     )
 }
