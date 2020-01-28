@@ -16,14 +16,12 @@ export default function useItinerary() {
             AsyncStorage.getItem('Access-Token')
                 .then(data => {
                     data = JSON.parse(data)
-                    console.log(data)
                     return axios({
                         url: '/itineraries/my-itineraries',
                         headers: { token: data.token }
                     })
                 })
                 .then(({ data }) => {
-                    console.log(data, "]]]]]]]]]]]]]]]]]]]]]")
                     dispatch({
                         type: SET_ITINERARIES,
                         itineraries: data
@@ -37,7 +35,7 @@ export default function useItinerary() {
                     })
                 })
         }
-    }, [])
+    }, [data])
 
     return { data, loading, error };
 }

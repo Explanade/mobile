@@ -47,8 +47,6 @@ export default function Profile(props) {
         name,
     } = useSelector(state => state.loginAcc)
 
-    console.log(name, profile_picture)
-
     const { data, loading, error } = useItinerary();
 
     useEffect(() => {
@@ -77,7 +75,6 @@ export default function Profile(props) {
                 longitude: location.coords.longitude
             })
             setAddress(a)
-            console.log(address)
         }
         getLocation()
     }, [])
@@ -120,7 +117,6 @@ export default function Profile(props) {
             longitude: location.coords.longitude
         })
         setAddress(a)
-        console.log(address)
     }
 
     if (data.length > 0) {
@@ -232,7 +228,7 @@ export default function Profile(props) {
                             <View>
                                 <TouchableHighlight
                                     style={styles.shadowContainer2}
-                                    onPress={() => props.navigation.navigate('Itinerary', { data: { itin: data[0], imagez: `https://source.unsplash.com/1600x900/?${data[0].location.name}` ? `https://source.unsplash.com/1600x900/?${data[0].location.name}` : featured_image[random()] } })}
+                                    onPress={() => props.navigation.navigate('Itinerary', { data: { itinId: data[0]._id, itin: data[0], imagez: `https://source.unsplash.com/1600x900/?${data[0].location.name}` ? `https://source.unsplash.com/1600x900/?${data[0].location.name}` : featured_image[random()] } })}
                                 >
                                     <View style={styles.descCard}>
                                         <Image

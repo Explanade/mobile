@@ -25,6 +25,11 @@ export default function itinerary(state = initialState, action) {
                 loading: false,
                 error: action.error
             }
+        case 'UPDATE_ACTIVITY_STATUS':
+            return {
+                ...state,
+                data: action.itin
+            }
         default:
             return state;
     }
