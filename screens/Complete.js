@@ -14,11 +14,20 @@ export default function BudgetForm(props) {
 
     const [budget, setBudget] = useState('')
     const [itinId, setItinId] = useState(null);
+    const [regex, setRegex] = useState(0)
     const data = props.navigation.state.params.data
+    const { data: reduxItin } = useSelector(state => state.itinerary);
+    const dispatch = useDispatch();
 
     useEffect(() => {
+        setBudget(data.itin.budget)
         setItinId(data.itinId);
     }, [])
+
+    useEffect(() => {
+        let regexify = (Number(budget)).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+        setRegex(regexify);
+    },[budget])
 
     function submitBudget(budget) {
         AsyncStorage.getItem('Access-Token')
@@ -34,6 +43,19 @@ export default function BudgetForm(props) {
                 })
             })
             .then(({ data }) => {
+                let updatedData = [];
+                for (let i = 0; i < reduxItin.length; i++) {
+                    if (reduxItin[i]._id == data._id) {
+                        reduxItin[i].budget = data.budget
+                    }
+                    updatedData.push(reduxItin[i])
+                }
+
+                dispatch({ 
+                    type: 'UPDATE_BUDGET_ITIN',
+                    itin: updatedData
+                })
+
                 props.navigation.goBack()
             })
             .catch(err => {
@@ -109,7 +131,7 @@ export default function BudgetForm(props) {
                                     marginBottom: 50,
                                 }}
                             >set your total budget here</Text>
-                            <Text style={styles.label}>total budget : </Text>
+                            <Text style={styles.label}>total budget : $ {regex}</Text>
                             <BlurView tint="dark" intensity={90} style={styles.blur}>
                                 <Image
                                     source={require('../assets/icons8-us-dollar-30.png')}

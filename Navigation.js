@@ -2,11 +2,10 @@ import React from 'react'
 import { StatusBar, TouchableOpacity, View, Text } from 'react-native'
 import { createAppContainer, createSwitchNavigator } from 'react-navigation'
 import { createMaterialTopTabNavigator } from 'react-navigation-tabs'
-import { useDispatch } from 'react-redux'
 import { createStackNavigator } from 'react-navigation-stack'
 import { FontAwesome, MaterialCommunityIcons, FontAwesome5 } from 'react-native-vector-icons'
 import { AsyncStorage } from 'react-native'
-
+import store from './store/store'
 
 
 import LandingPage from './screens/LandingPage'
@@ -16,7 +15,6 @@ import Itinerary from './screens/Itinerary'
 import MapView from './screens/MapView'
 import Complete from './screens/Complete'
 import { LinearGradient } from 'expo-linear-gradient'
-
 
 
 const HomeNavigator = createStackNavigator({
@@ -34,9 +32,8 @@ const HomeNavigator = createStackNavigator({
                         paddingHorizontal: 15,
                     }}>
                     <TouchableOpacity onPress={() => {
-                        // const dispatch = useDispatch()
                         AsyncStorage.removeItem('Access-Token')
-                        // dispatch({ type: "LOGOUT" })
+                        store.dispatch({ type: 'LOGOUT' })
                         navigation.navigate('LandingPage')
                     }
                     }>
@@ -65,7 +62,7 @@ const HomeNavigator = createStackNavigator({
                         </TouchableOpacity>
                     </View>
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('Complete', { data: { itinId: navigation.state.params.data.itinId } })}
+                        onPress={() => navigation.navigate('Complete', { data: { itinId: navigation.state.params.data.itinId, itin: navigation.state.params.data.itin } })}
                         style={{
                             paddingHorizontal: 25,
                             paddingLeft: 30,
