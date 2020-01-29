@@ -37,8 +37,7 @@ export default function Itinerary(props) {
         changedDay(0)
         setLoading(false);
     }, [data.itinId]);
-    console.log(day)
-
+    
     useEffect(() => {
         reduxItin.map(itin => {
             if (itin._id == itinId) {
