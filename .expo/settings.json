@@ -1,8 +1,0 @@
-{
-  "dev": true,
-  "minify": false,
-  "hostType": "localhost",
-  "lanType": "ip",
-  "urlRandomness": "hu-b4t",
-  "https": false
-}

@@ -1,9 +1,9 @@
 {
-  "expoServerPort": 19000,
-  "expoServerNgrokUrl": "https://hu-b4t.anonymous.mobile.exp.direct",
-  "packagerNgrokUrl": "https://packager.hu-b4t.anonymous.mobile.exp.direct",
-  "ngrokPid": 1831,
+  "expoServerPort": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null,
   "devToolsPort": 19002,
-  "packagerPort": 19001,
-  "packagerPid": 1708
+  "packagerPort": null,
+  "packagerPid": null
 }

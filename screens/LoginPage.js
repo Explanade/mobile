@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { StyleSheet, StatusBar, Dimensions, View, KeyboardAvoidingView, ImageBackground, Text, SafeAreaView, ActivityIndicator } from 'react-native'
+import { StyleSheet, Image, StatusBar, Dimensions, View, KeyboardAvoidingView, ImageBackground, Text, SafeAreaView, ActivityIndicator } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient';
 import TextInput2 from '../components/TextInput2'
 import { BlurView } from 'expo-blur'
@@ -14,8 +14,10 @@ export default function LoginPage(props) {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [timePassed, setTimePassed] = useState(false)
     const dispatch = useDispatch()
-    const { isLogin } = useSelector(state => state.loginAcc)
+    const { isLogin, message } = useSelector(state => state.loginAcc)
+    const [msg, setMsg] = useState('')
 
 
     function goLogin(email, password) {
@@ -25,12 +27,17 @@ export default function LoginPage(props) {
         }
         dispatch(login(payload))
     }
-
     useEffect(() => {
         if (isLogin) {
             props.navigation.navigate('Profile')
+        } else {
+            setMsg('')
         }
-    })
+    }, [isLogin])
+
+    useEffect(() => {
+        setMsg(message)
+    }, [message])
 
     return (
         <SafeAreaView style={styles.container}>
@@ -73,12 +80,22 @@ export default function LoginPage(props) {
                             justifyContent: "center",
                             marginVertical: 50,
                         }}>
-                            <Text style={styles.logo}> Welcome Back!</Text>
-                            {/* <Text style={styles.label}>email</Text> */}
+                            <Image
+                                style={{
+                                    width: width / 1.5,
+                                    height: height / 5,
+                                    zIndex: 100,
+                                    marginVertical: 30
+                                }}
+                                source={require('../assets/welcomeback-gif.gif')} />
+                            {/* <Text style={styles.logo}> Welcome Back!</Text> */}
                             <BlurView tint="dark" intensity={90} style={styles.blur}>
                                 <TextInput2
                                     style={styles.input}
-                                    onChangeText={(value) => setEmail(value)}
+                                    onChangeText={(value) => {
+                                        setEmail(value)
+                                        setMsg('')
+                                    }}
                                     value={email}
                                     type={'email'}
                                     inlineImageLeft='search_icon'
@@ -92,7 +109,10 @@ export default function LoginPage(props) {
                             <BlurView tint="dark" intensity={90} style={styles.blur}>
                                 <TextInput2
                                     style={styles.input}
-                                    onChangeText={(value) => setPassword(value)}
+                                    onChangeText={(value) => {
+                                        setPassword(value)
+                                        setMsg('')
+                                    }}
                                     value={password}
                                     blurOnSubmit={true}
                                     type={'password'}
@@ -102,6 +122,21 @@ export default function LoginPage(props) {
                                     placeholder={'YOUR PASSWORD'}
                                     placeholderStyle={{ ...styles.label }} />
                             </BlurView>
+                            {
+
+                                msg
+                                    ? <Text
+                                        style={{
+                                            color: "red",
+                                            marginTop: 10,
+                                            marginBottom: 0,
+                                            fontSize: 10,
+                                            textAlign: "center",
+                                            fontFamily: "Quicksand-Medium",
+                                            fontWeight: '600'
+                                        }}> {msg}</Text>
+                                    : <Text>  </Text>
+                            }
                             <TouchableHighlight
                                 style={{
                                     ...styles.input,
@@ -110,7 +145,7 @@ export default function LoginPage(props) {
                                     // paddingVertical: 17,
                                     paddingHorizontal: 10,
                                     // margin: 25,
-                                    marginTop: 33,
+                                    marginTop: 20,
                                     bottom: 0
                                 }}
                                 onPress={() => goLogin(email, password)}

@@ -2,6 +2,7 @@ import React from 'react'
 import { StatusBar, TouchableOpacity, View, Text } from 'react-native'
 import { createAppContainer, createSwitchNavigator } from 'react-navigation'
 import { createMaterialTopTabNavigator } from 'react-navigation-tabs'
+import { useDispatch } from 'react-redux'
 import { createStackNavigator } from 'react-navigation-stack'
 import { FontAwesome, MaterialCommunityIcons, FontAwesome5 } from 'react-native-vector-icons'
 import { AsyncStorage } from 'react-native'
@@ -32,7 +33,9 @@ const HomeNavigator = createStackNavigator({
                         paddingHorizontal: 15,
                     }}>
                     <TouchableOpacity onPress={() => {
+                        // const dispatch = useDispatch()
                         AsyncStorage.removeItem('Access-Token')
+                        // dispatch({ type: "LOGOUT" })
                         navigation.navigate('LandingPage')
                     }
                     }>
@@ -47,6 +50,7 @@ const HomeNavigator = createStackNavigator({
         screen: Itinerary,
         navigationOptions: () => ({
             header: ({ navigation }) => (
+
                 <View style={{
                     height: StatusBar.currentHeight + 70,
                     justifyContent: 'space-between',
@@ -60,7 +64,7 @@ const HomeNavigator = createStackNavigator({
                         </TouchableOpacity>
                     </View>
                     <TouchableOpacity
-                        onPress={() => navigation.navigate('Complete')}
+                        onPress={() => navigation.navigate('Complete', { data: { itinId: navigation.state.params.data.itinId } })}
                         style={{
                             paddingHorizontal: 25,
                             paddingLeft: 30,
@@ -81,7 +85,7 @@ const HomeNavigator = createStackNavigator({
                                 paddingTop: 5,
                             }} />
                     </TouchableOpacity>
-                </View>
+                </View >
             ),
             headerTransparent: true
         })

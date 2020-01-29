@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, StatusBar, Image, Dimensions, View, KeyboardAvoidingView, ImageBackground, Text, TextInput, SafeAreaView, ActivityIndicator } from 'react-native'
-import { LinearGradient } from 'expo-linear-gradient';
-import TextInput2 from '../components/TextInput2'
 import { BlurView } from 'expo-blur'
 import { TouchableHighlight } from 'react-native-gesture-handler';
 import { useDispatch, useSelector } from 'react-redux'
-import CurrencyInput from 'react-currency-input';
+import axios from '../config/client'
+import { AsyncStorage } from 'react-native'
 // import { completeBudget } from '../store/actions/completeBudget'
 
 const { width, height } = Dimensions.get('window')
@@ -14,13 +13,32 @@ const { width, height } = Dimensions.get('window')
 export default function BudgetForm(props) {
 
     const [budget, setBudget] = useState('')
-    const dispatch = useDispatch()
-    const { isLogin } = useSelector(state => state.loginAcc)
+    const [itinId, setItinId] = useState(null);
+    const data = props.navigation.state.params.data
 
+    useEffect(() => {
+        setItinId(data.itinId);
+    }, [])
 
     function submitBudget(budget) {
-        // dispatch(completeBudget(budget))
-        props.navigation.goBack()
+        AsyncStorage.getItem('Access-Token')
+            .then(data => {
+                data = JSON.parse(data)
+                return axios({
+                    url: `/itineraries/${itinId}`,
+                    method: 'patch',
+                    headers: { token: data.token },
+                    data: {
+                        budget
+                    }
+                })
+            })
+            .then(({ data }) => {
+                props.navigation.goBack()
+            })
+            .catch(err => {
+                console.log(err)
+            })
     }
 
     return (

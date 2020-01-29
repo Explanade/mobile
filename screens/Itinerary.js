@@ -13,26 +13,39 @@ import {
 } from 'react-native'
 import Timeline from '../components/Timeline'
 const { width, height } = Dimensions.get('window')
+import { useSelector } from 'react-redux';
 
 
 export default function Itinerary(props) {
 
     const [itinerary, setItinerary] = useState({});
+    const [itinId, setItinId] = useState(null);
     const [isLoading, setLoading] = useState(false);
     const [refresh, setRefresh] = useState(false);
     const [itinDetail, setItinDetail] = useState([]);
-    const [day, setDay] = useState('')
+    const [day, setDay] = useState('');
+    const [active, setActive] = useState('');
+
+
+
     const data = props.navigation.state.params.data
-    console.log(itinDetail)
-
-
+    const { data: reduxItin } = useSelector(state => state.itinerary);
     useEffect(() => {
         setLoading(true)
-        setItinerary(data.itin)
+        setItinId(data.itinId);
+        setItinerary(data.itin);
         changedDay(0)
         setLoading(false);
+    }, [data.itinId]);
+    console.log(day)
 
-    }, [data.itin]);
+    useEffect(() => {
+        reduxItin.map(itin => {
+            if (itin._id == itinId) {
+                setItinerary(itin)
+            }
+        })
+    }, [reduxItin])
 
     function wait(timeout) {
         return new Promise(resolve => {
@@ -51,8 +64,10 @@ export default function Itinerary(props) {
 
     const changedDay = (index) => {
         setLoading(true)
-        setItinDetail(data.itin.activities[index].places)
-        setDay(data.itin.activities[index])
+        let initItin = itinerary.activities ? itinerary : data.itin
+        setItinDetail(initItin.activities[index].places)
+        setDay(initItin.activities[index])
+        setActive(index)
         setLoading(false);
     }
 
@@ -129,10 +144,16 @@ export default function Itinerary(props) {
                             style={{ backgroundColor: "transparent" }}
                             horizontal={true}
                             showsHorizontalScrollIndicator={false}
-                            data={data.itin.activities}
+                            data={itinerary.activities}
                             renderItem={({ item, index }) => (
                                 <TouchableOpacity onPress={() => changedDay(index)} >
-                                    <Text style={styles.day}> day {index + 1} </Text>
+                                    <Text
+                                        style={{
+                                            ...styles.day,
+                                            color: active === index ? "black" : 'darkgrey',
+                                            backgroundColor: active === index ? '#b3d7d8' : '#e5f6f4',
+                                        }}
+                                    > day {index + 1} </Text>
                                 </TouchableOpacity>
                             )}
                             keyExtractor={(item, index) => index.toString()}
@@ -146,6 +167,8 @@ export default function Itinerary(props) {
                             : (
                                 <Timeline
                                     data={itinDetail}
+                                    itinDetail={itinDetail}
+                                    setItinDetail={setItinDetail}
                                     day={day}
                                     circleSize={9}
                                     circleColor='#f8d05d'
@@ -210,9 +233,7 @@ const styles = StyleSheet.create({
         textAlign: "center",
         fontFamily: 'Quicksand-Medium',
         fontWeight: 'bold',
-        color: '#3a3d3d',
         textTransform: "uppercase",
-        backgroundColor: '#b3d7d8',
         borderRadius: 12,
         padding: 5
     },
