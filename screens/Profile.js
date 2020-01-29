@@ -273,7 +273,23 @@ export default function Profile(props) {
             </SafeAreaView >
         )
     }
-    else return <Text>asd</Text>
+    else {
+        return (
+            <View style={{
+                flex: 1,
+                height,
+                width,
+                alignItems: 'center',
+                justifyContent: 'center',
+                backgroundColor: "rgb(234,229,222)"
+            }}>
+                <Image
+                    resizeMode={'cover'}
+                    source={require('../assets/traveler.gif')}
+                ></Image>
+            </View>
+        )
+    }
 }
 
 const styles = StyleSheet.create({

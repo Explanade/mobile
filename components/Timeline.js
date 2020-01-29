@@ -377,7 +377,7 @@ export default class Timeline extends PureComponent {
                     </View>
                     <Text style={{ marginRight: 20 }}>
                         {priceTag.map((item, index) => (
-                            <FontAwesome name={'dollar'}
+                            <FontAwesome key={index} name={'dollar'}
                                 style={{
                                     fontSize: 10,
                                     color: 'green'

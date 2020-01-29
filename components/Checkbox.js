@@ -76,7 +76,7 @@ export default function Checkbox(props) {
         <View style={{ flexDirection: 'row', alignItems: "center", marginLeft: -10 }}>
             <CheckBox
                 containerStyle={{ marginTop: 5, padding: 0 }}
-                checked={status}
+                checked={Boolean(status)}
                 onPress={updateStatus}
             />
             <Text style={{

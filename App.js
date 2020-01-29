@@ -52,10 +52,17 @@ export default function App() {
   }
   else {
     return (
-      <View style={styles.loading}>
+      <View style={{
+        flex: 1,
+        height,
+        width,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: "rgb(234,229,222)"
+      }}>
         <Image
-          style={{ width: 100, height: 100 }}
-          source={{ uri: 'https://succulents.qodeinteractive.com/wp-content/themes/succulents/assets/img/succulents-loader.gif' }}
+          resizeMode={'cover'}
+          source={require('./assets/traveler.gif')}
         ></Image>
       </View>
     );
