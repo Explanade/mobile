@@ -140,7 +140,7 @@ export default function Profile(props) {
                                 height: height / 2,
                                 resizeMode: 'cover',
                                 top: 0,
-                                position: 'relative'
+                                position: 'relative',
                             }}
                             blurRadius={1}
                         />

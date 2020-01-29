@@ -11,8 +11,10 @@ import {
     Linking,
     TouchableHighlight,
 } from "react-native";
-import { FontAwesome } from '@expo/vector-icons';
+// import { FontAwesome } from '@expo/vector-icons';
 import Checkbox from '../components/Checkbox'
+import { FontAwesome } from 'react-native-vector-icons'
+
 
 
 
@@ -162,13 +164,28 @@ export default class Timeline extends PureComponent {
         return (
             <View style={timeWrapper}>
                 <View style={[styles.timeContainer, this.props.timeContainerStyle]}>
-                    <Text style={[styles.time, this.props.timeStyle]}>
+                    <Text style={{
+                        textAlign: 'center',
+                        backgroundColor: rowData.status ? 'grey' : '#4abebd',
+                        color: 'white',
+                        paddingHorizontal: 5,
+                        paddingVertical: 6,
+                        borderRadius: 50,
+                        fontSize: 8,
+                        fontWeight: 'bold',
+                        width: 50 / 2,
+                        height: 50 / 2,
+                        textAlign: 'center',
+                        overflow: "hidden",
+                        fontFamily: 'Poppins-Medium',
+                        borderRadius: 50 / 2
+                    }}>
                         {rowData.order + 1}
                     </Text>
                 </View>
 
                 {
-                    rowData.photo
+                    !rowData.status
                         ? (
                             <View style={styles.shadowContainer}>
                                 <Image
@@ -179,7 +196,22 @@ export default class Timeline extends PureComponent {
                             </View>
                         )
                         : (
-                            <View>
+                            <View style={{ ...styles.shadowContainer, opacity: 0.6 }}>
+                                <View style={{
+                                    ...styles.imageContainer,
+                                    backgroundColor: 'darkgrey',
+                                    opacity: 0.8,
+                                    position: "absolute",
+                                    zIndex: 1000
+                                }}></View>
+                                <Image
+                                    source={{ uri: rowData.photo }}
+                                    style={{
+                                        ...styles.imageContainer,
+                                        opacity: 0.7
+                                    }}
+                                    resizeMode={'cover'}
+                                />
                             </View>
                         )
                 }
@@ -210,7 +242,7 @@ export default class Timeline extends PureComponent {
                             Get Directions</Text>
                     </View>
                 </TouchableHighlight>
-            </View>
+            </View >
         );
     }
 
@@ -293,6 +325,11 @@ export default class Timeline extends PureComponent {
 
     _renderDetail(rowData, rowID) {
 
+        let priceTag = []
+        for (let i = 0; i < rowData.price_level; i++) {
+            priceTag.push(i)
+        }
+
         let description;
         if (typeof rowData.formatted_address === 'string') {
             description = (
@@ -316,15 +353,38 @@ export default class Timeline extends PureComponent {
                         fontFamily: 'Poppins-Medium'
                     }}
                 >{description} </Text>
-                <FontAwesome name={'star'} style={{ fontSize: 12, color: '#f9b517' }}>
-                    <Text
-                        style={{
-                            color: 'black',
-                            fontSize: 11,
-                            fontFamily: 'Poppins-Medium'
-                        }}
-                    > {rowData.rating}</Text>
-                </FontAwesome>
+                <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+                    <View style={{ flexDirection: "row", }}>
+                        <FontAwesome name={'star'} style={{ fontSize: 12, color: '#f9b517' }}>
+                            <Text
+                                style={{
+                                    color: 'black',
+                                    fontSize: 11,
+                                    fontFamily: 'Poppins-Medium'
+                                }}
+                            > {rowData.rating}</Text>
+
+                        </FontAwesome>
+                        <Text
+                            style={{
+                                color: 'grey',
+                                fontSize: 9,
+                                fontFamily: 'Poppins-Medium',
+                                marginRight: 10,
+                                textAlign: "center"
+                            }}
+                        > /  {rowData.user_ratings_total}  <FontAwesome name={'user'} style={{ fontSize: 9, color: 'grey' }}></FontAwesome></Text>
+                    </View>
+                    <Text style={{ marginRight: 20 }}>
+                        {priceTag.map((item, index) => (
+                            <FontAwesome name={'dollar'}
+                                style={{
+                                    fontSize: 10,
+                                    color: 'green'
+                                }} />
+                        ))}
+                    </Text>
+                </View>
                 <Checkbox status={Boolean(rowData.status)} itinDetail={this.props.itinDetail} setItinDetail={this.props.setItinDetail} place_id={rowData.id} activity_id={this.props.day._id}></Checkbox>
             </View >
         );
@@ -336,7 +396,7 @@ export default class Timeline extends PureComponent {
             : this.props.circleSize ? this.props.circleSize : defaultCircleSize;
         var circleColor = rowData.circleColor
             ? rowData.circleColor
-            : this.props.circleColor ? this.props.circleColor : defaultCircleColor;
+            : rowData.status ? "white" : "#f8d05d";
         var lineWidth = rowData.lineWidth
             ? rowData.lineWidth
             : this.props.lineWidth ? this.props.lineWidth : defaultLineWidth;

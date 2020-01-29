@@ -24,17 +24,20 @@ export default function Itinerary(props) {
     const [refresh, setRefresh] = useState(false);
     const [itinDetail, setItinDetail] = useState([]);
     const [day, setDay] = useState('');
+    const [active, setActive] = useState('');
+
+
 
     const data = props.navigation.state.params.data
     const { data: reduxItin } = useSelector(state => state.itinerary);
-
     useEffect(() => {
         setLoading(true)
         setItinId(data.itinId);
         setItinerary(data.itin);
-        changedDay(0) 
+        changedDay(0)
         setLoading(false);
     }, [data.itinId]);
+    console.log(day)
 
     useEffect(() => {
         reduxItin.map(itin => {
@@ -42,7 +45,7 @@ export default function Itinerary(props) {
                 setItinerary(itin)
             }
         })
-    },[reduxItin])
+    }, [reduxItin])
 
     function wait(timeout) {
         return new Promise(resolve => {
@@ -64,6 +67,7 @@ export default function Itinerary(props) {
         let initItin = itinerary.activities ? itinerary : data.itin
         setItinDetail(initItin.activities[index].places)
         setDay(initItin.activities[index])
+        setActive(index)
         setLoading(false);
     }
 
@@ -143,7 +147,13 @@ export default function Itinerary(props) {
                             data={itinerary.activities}
                             renderItem={({ item, index }) => (
                                 <TouchableOpacity onPress={() => changedDay(index)} >
-                                    <Text style={styles.day}> day {index + 1} </Text>
+                                    <Text
+                                        style={{
+                                            ...styles.day,
+                                            color: active === index ? "black" : 'darkgrey',
+                                            backgroundColor: active === index ? '#b3d7d8' : '#e5f6f4',
+                                        }}
+                                    > day {index + 1} </Text>
                                 </TouchableOpacity>
                             )}
                             keyExtractor={(item, index) => index.toString()}
@@ -223,9 +233,7 @@ const styles = StyleSheet.create({
         textAlign: "center",
         fontFamily: 'Quicksand-Medium',
         fontWeight: 'bold',
-        color: '#3a3d3d',
         textTransform: "uppercase",
-        backgroundColor: '#b3d7d8',
         borderRadius: 12,
         padding: 5
     },

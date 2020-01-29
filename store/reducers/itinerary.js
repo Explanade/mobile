@@ -30,6 +30,11 @@ export default function itinerary(state = initialState, action) {
                 ...state,
                 data: action.itin
             }
+        case 'UPDATE_BUDGET_ITIN':
+            return {
+                ...state,
+                data: action.itin
+            }
         default:
             return state;
     }

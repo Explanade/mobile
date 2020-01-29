@@ -18,42 +18,10 @@ export default function LandingPage(props) {
   })
 
   return (
-    // <Block style={{ backgroundColor: '#eae5de' }} >
-    //   <Block center end flex={0.3}>
-    //     <Text h1 style={{ fontWeight: 'bold', color: '#a8cdee' }}>
-    //       <Text h1 style={{ color: 'white' }}> Xplanade </Text>
-    //     </Text>
-    //   </Block>
-    //   <Block flex={0.6} center middle>
-    //     <Image
-    //       style={{ width: width - 50, height: height / 2 }}
-    //       resizeMode={'cover'}
-    //       source={require('../assets/traveler.gif')}
-    //     />
-    //   </Block>
-    //   <Block center flex={0.3} >
-    //     <Button style={{
-    //       width: '30%',
-    //       borderRadius: 12,
-    //       backgroundColor: 'white'
-    //     }}
-    //       onPress={() => props.navigation.navigate('LoginPage')}>
-    //       <Text center h5 style={{
-    //         color: '#154036',
-    //         width: '100%',
-    //         fontWeight: 'bold',
-    //         letterSpacing: 2,
-    //       }}>TAKE ME IN</Text>
-    //     </Button>
-    //   </Block>
-    // </Block >
     <ImageBackground
-      // source={{ uri: 'https://media.theeverygirl.com/wp-content/uploads/2018/12/how-to-store-memories-and-photos.jpg' }}
-      source={{ uri: 'https://mir-s3-cdn-cf.behance.net/project_modules/1400_opt_1/94517f88315503.5dd2e6299da36.jpg' }}
-      // source={{ uri: 'https://i.pinimg.com/564x/62/03/0d/62030d17484a2fa2c55250e24c1e3816.jpg' }}
-      // source={{ uri: 'https://mir-s3-cdn-cf.behance.net/project_modules/disp/41d76958336221.59f88b937fb33.jpg' }}
-      // source={{ uri: 'https://mir-s3-cdn-cf.behance.net/project_modules/disp/701c3e88044003.5dcebb5b7452a.jpg' }}
-      style={{ height: height + 30, width }} blurRadius={0.5}>
+      // source={{ uri: 'https://mir-s3-cdn-cf.behance.net/project_modules/1400_opt_1/94517f88315503.5dd2e6299da36.jpg' }}
+      source={{ uri: 'https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/89aaa273358257.5c06e39a6407e.jpg' }}
+      style={{ height: height + 30, width }} blurRadius={0}>
       <View style={{
         height: height + 30,
         width,
@@ -70,19 +38,36 @@ export default function LandingPage(props) {
           zIndex: 100
         }}
       ></Image>
+      <Text style={{
+        textAlign: "center",
+        padding: 4,
+        marginTop: 100,
+        paddingLeft: 8,
+        color: 'white',
+        letterSpacing: 3,
+        marginHorizontal: 5,
+        fontWeight: '600',
+        fontSize: 12,
+        zIndex: 10
+      }}> EXPLANADE</Text>
       <Block center flex={0.3} >
         <Button style={{
-          width: '30%',
-          borderRadius: 12,
-          backgroundColor: 'white',
-          top: 500,
+          width: '35%',
+          // borderRadius: 12,
+          backgroundColor: 'rgba(255,255,255,0.3)',
+          top: 250,
         }}
           onPress={() => props.navigation.navigate('LoginPage')}>
           <Text center h5 style={{
-            color: '#154036',
+            color: 'white',
             width: '100%',
+            backgroundColor: 'rgba(255,255,255,0.05)',
             fontWeight: 'bold',
-            letterSpacing: 2,
+            letterSpacing: 3,
+            fontFamily: 'Poppins-SemiBold',
+            textShadowColor: 'black',
+            textShadowOffset: { height: 3 },
+            textShadowRadius: 8,
           }}>TAKE ME IN</Text>
         </Button>
       </Block>
