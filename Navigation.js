@@ -15,6 +15,7 @@ import Profile from './screens/Profile'
 import Itinerary from './screens/Itinerary'
 import MapView from './screens/MapView'
 import Complete from './screens/Complete'
+import { LinearGradient } from 'expo-linear-gradient'
 
 
 
@@ -121,27 +122,37 @@ const HomeNavigator = createStackNavigator({
                     alignItems: 'flex-end',
                     paddingHorizontal: 15,
                 }}>
+                    <LinearGradient
+                        colors={['rgba(76,188,171,0.8)', 'transparent']}
+                        style={{
+                            position: 'absolute',
+                            left: 0,
+                            right: 0,
+                            top: 0,
+                            height: 300,
+                        }}
+                    />
                     <View style={{ flexDirection: 'row', marginBottom: 10 }}>
-                        <TouchableOpacity onPress={() => navigation.goBack()} style={{ paddingHorizontal: 30, paddingTop: 45 }}>
+                        <TouchableOpacity onPress={() => navigation.goBack()} style={{ paddingLeft: 30, paddingTop: 45 }}>
                             <FontAwesome5 name={'chevron-left'} style={{
-                                fontSize: 20, color: 'black', textShadowColor: '#f2b41e',
+                                fontSize: 20, color: 'white', textShadowColor: 'black',
                                 textShadowOffset: { height: 3 },
                                 textShadowRadius: 8,
                             }} />
                         </TouchableOpacity>
                         <Text
                             style={{
-                                paddingTop: 28,
+                                paddingTop: 30,
                                 marginVertical: 5,
                                 paddingLeft: 5,
-                                color: 'black',
+                                color: 'white',
                                 letterSpacing: 3,
-                                marginHorizontal: 5,
+                                marginHorizontal: 10,
                                 fontWeight: '600',
                                 fontSize: 25,
                                 textTransform: "uppercase",
                                 fontFamily: 'Poppins-SemiBold',
-                                textShadowColor: '#f2b41e',
+                                textShadowColor: 'black',
                                 textShadowOffset: { height: 3 },
                                 textShadowRadius: 8,
                             }}

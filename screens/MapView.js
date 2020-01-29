@@ -19,6 +19,241 @@ export default function Maps(props) {
 
     const [animation, setAnimation] = useState(new Animated.Value(0))
     const [markers, setMarkers] = useState([])
+    const [mapStyle, setMapStyle] = useState(
+        [
+            {
+                "elementType": "geometry",
+                "stylers": [
+                    {
+                        "color": "#EBE3CD"
+                    }
+                ]
+            },
+            {
+                "elementType": "labels.text.fill",
+                "stylers": [
+                    {
+                        "color": "#523735"
+                    }
+                ]
+            },
+            {
+                "elementType": "labels.text.stroke",
+                "stylers": [
+                    {
+                        "color": "#F5F1E6"
+                    }
+                ]
+            },
+            {
+                "featureType": "administrative",
+                "elementType": "geometry.stroke",
+                "stylers": [
+                    {
+                        "color": "#C9B2A6"
+                    }
+                ]
+            },
+            {
+                "featureType": "administrative.land_parcel",
+                "elementType": "geometry.stroke",
+                "stylers": [
+                    {
+                        "color": "#DCD2BE"
+                    }
+                ]
+            },
+            {
+                "featureType": "administrative.land_parcel",
+                "elementType": "labels.text.fill",
+                "stylers": [
+                    {
+                        "color": "#AE9E90"
+                    }
+                ]
+            },
+            {
+                "featureType": "landscape.natural",
+                "elementType": "geometry",
+                "stylers": [
+                    {
+                        "color": "#DFD2AE"
+                    }
+                ]
+            },
+            {
+                "featureType": "poi",
+                "elementType": "geometry",
+                "stylers": [
+                    {
+                        "color": "#DFD2AE"
+                    }
+                ]
+            },
+            {
+                "featureType": "poi",
+                "elementType": "labels.text.fill",
+                "stylers": [
+                    {
+                        "color": "#93817C"
+                    }
+                ]
+            },
+            {
+                "featureType": "poi.park",
+                "elementType": "geometry.fill",
+                "stylers": [
+                    {
+                        "color": "#A5B076"
+                    }
+                ]
+            },
+            {
+                "featureType": "poi.park",
+                "elementType": "labels.text.fill",
+                "stylers": [
+                    {
+                        "color": "#447530"
+                    }
+                ]
+            },
+            {
+                "featureType": "road",
+                "elementType": "geometry",
+                "stylers": [
+                    {
+                        "color": "#F5F1E6"
+                    }
+                ]
+            },
+            {
+                "featureType": "road.arterial",
+                "elementType": "geometry",
+                "stylers": [
+                    {
+                        "color": "#FDFCF8"
+                    }
+                ]
+            },
+            {
+                "featureType": "road.highway",
+                "elementType": "geometry",
+                "stylers": [
+                    {
+                        "color": "#F8C967"
+                    }
+                ]
+            },
+            {
+                "featureType": "road.highway",
+                "elementType": "geometry.fill",
+                "stylers": [
+                    {
+                        "color": "#92DDC8"
+                    }
+                ]
+            },
+            {
+                "featureType": "road.highway",
+                "elementType": "geometry.stroke",
+                "stylers": [
+                    {
+                        "color": "#92DDC8"
+                    }
+                ]
+            },
+            {
+                "featureType": "road.highway.controlled_access",
+                "elementType": "geometry",
+                "stylers": [
+                    {
+                        "color": "#E98D58"
+                    }
+                ]
+            },
+            {
+                "featureType": "road.highway.controlled_access",
+                "elementType": "geometry.fill",
+                "stylers": [
+                    {
+                        "color": "#357B63"
+                    }
+                ]
+            },
+            {
+                "featureType": "road.highway.controlled_access",
+                "elementType": "geometry.stroke",
+                "stylers": [
+                    {
+                        "color": "#357B63"
+                    }
+                ]
+            },
+            {
+                "featureType": "road.local",
+                "elementType": "labels.text.fill",
+                "stylers": [
+                    {
+                        "color": "#806B63"
+                    }
+                ]
+            },
+            {
+                "featureType": "transit.line",
+                "elementType": "geometry",
+                "stylers": [
+                    {
+                        "color": "#DFD2AE"
+                    }
+                ]
+            },
+            {
+                "featureType": "transit.line",
+                "elementType": "labels.text.fill",
+                "stylers": [
+                    {
+                        "color": "#8F7D77"
+                    }
+                ]
+            },
+            {
+                "featureType": "transit.line",
+                "elementType": "labels.text.stroke",
+                "stylers": [
+                    {
+                        "color": "#EBE3CD"
+                    }
+                ]
+            },
+            {
+                "featureType": "transit.station",
+                "elementType": "geometry",
+                "stylers": [
+                    {
+                        "color": "#DFD2AE"
+                    }
+                ]
+            },
+            {
+                "featureType": "water",
+                "elementType": "geometry.fill",
+                "stylers": [
+                    {
+                        "color": "#B9D3C2"
+                    }
+                ]
+            },
+            {
+                "featureType": "water",
+                "elementType": "labels.text.fill",
+                "stylers": [
+                    {
+                        "color": "#92998D"
+                    }
+                ]
+            }
+        ]
+    )
 
     useEffect(() => {
         let temp = [];
@@ -99,6 +334,7 @@ export default function Maps(props) {
         <View style={styles.container}>
             {/* <LinearGradient></LinearGradient> */}
             <MapView
+                customMapStyle={mapStyle}
                 ref={map => setMaps(map)}
                 initialRegion={region}
                 style={styles.container}
@@ -112,8 +348,9 @@ export default function Maps(props) {
                             <Marker key={index} coordinate={marker.coordinate}>
                                 <Animated.View style={[styles.markerWrap, opacityStyle]}>
                                     <View style={styles.marker}>
+                                        <Image source={require('../assets/icon-pin-poin.png')} style={{ resizeMode: 'contain', flex: 1 }} />
 
-                                        <Image source={{ uri: "https://img.icons8.com/plasticine/100/000000/marker.png" }} style={{ resizeMode: 'cover', flex: 1, width: '100%' }} />
+                                        {/* <Image source={{ uri: "https://img.icons8.com/plasticine/100/000000/marker.png" }} style={{ resizeMode: 'cover', flex: 1, width: '100%' }} /> */}
                                     </View>
                                 </Animated.View>
                             </Marker>
@@ -183,9 +420,9 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         margin: 10,
         elevation: 8,
-        // backgroundColor: 'black',
+        backgroundColor: 'rgba(233, 141, 88,0.8)',
         shadowOffset: { height: 4 },
-        shadowColor: "black",
+        shadowColor: "rgba(233, 141, 88,0.8)",
         shadowOpacity: 0.8,
         shadowRadius: 5,
         justifyContent: "center",
@@ -264,8 +501,8 @@ const styles = StyleSheet.create({
         justifyContent: "center",
     },
     marker: {
-        width: 30,
-        height: 40,
+        width: 'auto',
+        height: "auto",
         borderRadius: 4,
     },
 });
